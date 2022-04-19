@@ -1,6 +1,6 @@
 'use strict'
 
-const {db, models: {User} } = require('../server/db')
+const {db, models: {User, Product} } = require('../server/db')
 
 /**
  * seed - this function clears the database, updates tables to
@@ -15,6 +15,36 @@ async function seed() {
     User.create({ username: 'cody', password: '123' }),
     User.create({ username: 'murphy', password: '123' }),
   ])
+
+  const products = [
+    {
+        name: "testBread01",
+        price: 1.11,
+        category: "default",
+    },
+    {
+        name: "testBread02",
+        img: "https://preview.redd.it/sccvha8dpct81.jpg?width=640&crop=smart&auto=webp&s=57b0251f3dd40a9619ea7f66c7acd3c35eb386aa",
+        description: "creator: Jaque Bredphase, Artistic analysis: framing is exquisit, lighting is etherial. Tree structure is bold. A perfect specimen",
+        price: 2.22,
+        quantity: 22,
+        category: "day",
+    },
+    {
+        name: "testBread03",
+        img: "https://external-preview.redd.it/DaNAaU_IpqVQvFOB4xrwSfKaa6B1Lpova2pF-ypQc4Q.jpg?width=640&crop=smart&auto=webp&s=944097396bfd2ec247cd89822afede5b41a7bc4f",
+        description: "creator: someone, description here",
+        price: 3.33,
+        quantity: 33,
+        category: "night",
+    },
+  ]
+
+  await Promise.all(
+    products.map((product)=>{
+      return Product.create(product) //changed from (...product)
+    })
+  )
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
