@@ -1,25 +1,24 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {fetchProducts} from '../store/products'
+import React from "react";
+import { connect } from "react-redux";
+import { fetchProducts } from "../store/products";
+import { Link } from "react-router-dom";
 
-export class AllProducts extends React.Component{
+export class AllProducts extends React.Component {
+  componentDidMount() {
+    this.props.fetchProductsThunk();
+  }
 
-    componentDidMount(){
-        this.props.fetchProductsThunk()
-    }
+  render() {
+    let productsArr = this.props.products || [];
 
-    render() {
-        console.log(this.props)
-        let productsArr = this.props.products.products || [];
-    
-        return (
-          <div className="productsList">
-            {productsArr.map((products) => (
+    return (
+      <div className="productsList">
+        {!productsArr.length
+          ? ""
+          : productsArr.map((products) => (
               <div key={products.id}>
                 <Link to={`/products/${products.id}`} className="products">
-                  <h2>
-                    {products.name}
-                  </h2>
+                  <h2>{products.name}</h2>
                 </Link>
                 {/* <button
                   type="button"
@@ -31,21 +30,21 @@ export class AllProducts extends React.Component{
                 <img src={products.img} />
               </div>
             ))}
-          </div>
-        );
-      }
-    }
-    
-    const mapState = (state) => {
-      return {
-        products: state.products,
-      };
-    };
-    
-    const mapDispatch = (dispatch) => {
-      return {
-        fetchProductsThunk: () => dispatch(fetchProducts()),
-      };
-    };
-    
-    export default connect(mapState, mapDispatch)(AllProducts);
+      </div>
+    );
+  }
+}
+
+const mapState = (reduxState) => {
+  return {
+    products: reduxState.products,
+  };
+};
+
+const mapDispatch = (dispatch) => {
+  return {
+    fetchProductsThunk: () => dispatch(fetchProducts()),
+  };
+};
+
+export default connect(mapState, mapDispatch)(AllProducts);
