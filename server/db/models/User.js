@@ -15,6 +15,36 @@ const User = db.define('user', {
   password: {
     type: Sequelize.STRING,
   },
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate:
+    {notEmpty: true},
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate:
+    {notEmpty: true},
+  },
+  email: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+        isEmail: true,
+        notEmpty: true,
+    }
+  },
+  admin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
+  imageUrl: {
+    type: Sequelize.STRING,
+    defaultValue: 'https://preview.redd.it/uxideg5afmh21.jpg?auto=webp&s=068bc63180e3bb02d8d0d40903657f513f044a53',
+  },
+  
+
 });
 
 module.exports = User;
