@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fetchSingleProduct } from "../store/singleProduct";
+import { Link } from "react-router-dom";
 
 export class SingleProduct extends React.Component {
   componentDidMount() {
@@ -15,6 +16,7 @@ export class SingleProduct extends React.Component {
     const singleProduct = this.props.singleProduct;
     return (
       <div className="singleProduct">
+        <Link to="/products"> Back To All Products</Link>
         <h2>{singleProduct.name}</h2>
         <h3> $ {singleProduct.price}</h3>
         <p>
