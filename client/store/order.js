@@ -12,7 +12,7 @@ export const setOrder = (order) => {
   export const fetchOrder = (id) => {
     return async (dispatch) => {
       try {
-        const { data } = await axios.get(`/api/orders/${id}`);
+        const { data } = await axios.get(`/api/order/${id}`);
         dispatch(setCart(data));
       } catch (err) {
         console.log('ERROR', err);
@@ -23,7 +23,11 @@ export const setOrder = (order) => {
   export default function products(state = [], action) {
     switch (action.type) {
       case SET_ORDER:
-        return { cartOrder: action.order.cartItems };
+        return {
+          userInfo: action.info,
+          cartInfo: action.info.cartItems,
+          orderInfo: action.info.orders,
+        };
       default:
         return state;
     }

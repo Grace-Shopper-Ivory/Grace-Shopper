@@ -10,12 +10,12 @@ export class Order extends React.Component {
   render() {
     console.log(this.props);
 
-    let userInfo = this.props.userInfo.userInfo;
-    let cartOrder = this.props.userInfo.cartOrder;
+    // let userInfo = this.props.userInfo.userInfo;
+    // let cartOrder = this.props.user.cartOrder;
     
 
     return (
-      <div className="user-page">
+      <div className="user-page"> hello
         <h1>Hello {user.firstName}</h1>
         {/* <div className="cart"></div>
         <div className="orders">
