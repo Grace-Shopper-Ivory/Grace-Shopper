@@ -8,6 +8,8 @@ import SingleProduct from "./components/SingleProduct";
 import { me } from "./store";
 import UserCreate from './components/UserCreate'
 import UserPage from './components/UserPage';
+import Order from './components/Order';
+
 
 /**
  * COMPONENT
@@ -24,8 +26,8 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route exact path="/" component={AllProducts} />
-            <Route
-              path={`/userpage/${this.props.user.id}`} component={UserPage}/>
+            <Route path={`/userpage/${this.props.user.id}`} component={UserPage}/>
+            <Route path={`/order/${this.props.user.id}`} component={Order}/>
           </Switch>
         ) : (
           <Switch>
