@@ -2,11 +2,7 @@ import axios from 'axios';
 
 const SET_INFO = 'SET_INFO';
 
-let intialState = {
-  userInfo: {},
-  cartInfo: [],
-  orderInfo: [],
-};
+let intialState = {};
 
 export const setInfo = (info) => {
   return {
@@ -19,6 +15,7 @@ export const fetchInfo = (id) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`/api/info/${id}`);
+      console.log(data);
       dispatch(setInfo(data));
     } catch (err) {
       console.log('ERROR', err);
@@ -31,8 +28,7 @@ export default function products(state = intialState, action) {
     case SET_INFO:
       return {
         userInfo: action.info,
-        cartInfo: action.info.cartItems,
-        orderInfo: action.info.orders,
+        ProductInfo: action.info.products,
       };
     default:
       return state;

@@ -9,21 +9,52 @@ export class UserPage extends React.Component {
   }
   render() {
     console.log(this.props);
-
-    let userInfo = this.props.userInfo.userInfo;
-    let cartInfo = this.props.userInfo.cartInfo;
-    let orderInfo = this.props.userInfo.orderInfo;
+    let userInfo = this.props.userInfo.userInfo || {};
+    let productInfo = this.props.userInfo.ProductInfo || [];
 
     return (
       <div className="user-page">
-        <h1>Hello {userInfo.firstName}</h1>
-        <div className="cart"></div>
+        <h1>
+          Hello {userInfo.firstName} {userInfo.lastName}
+        </h1>
+        <div className="cart">
+          <h2>Cart Info:</h2>
+          {!productInfo.length
+            ? ''
+            : productInfo.map((product) =>
+                product.order.inCart ? (
+                  ''
+                ) : (
+                  <div key={product.id}>
+                    <Link to={`/products/${product.id}`} className="products">
+                      <h2>{product.name}</h2>
+                    </Link>
+                    <img src={product.img} />
+                  </div>
+                )
+              )}
+        </div>
         <div className="orders">
-          <p></p>
-          <h2>{userInfo.firstName}</h2>
+          <h2>Order Info:</h2>
+          {!productInfo.length
+            ? ''
+            : productInfo.map((product) =>
+                !product.order.inCart ? (
+                  ''
+                ) : (
+                  <div key={product.id}>
+                    <Link to={`/products/${product.id}`} className="products">
+                      <h2>{product.name}</h2>
+                    </Link>
+                    <img src={product.img} />
+                  </div>
+                )
+              )}
         </div>
         <div className="payment">
-          <p>Payment info</p>
+          <h2>Payment Info:</h2>
+          <h3>Card Information: {userInfo.paymentInfo}</h3>
+          <button>Update Payment Info</button>
         </div>
       </div>
     );
@@ -32,8 +63,7 @@ export class UserPage extends React.Component {
 const mapState = (reduxState) => {
   return {
     userInfo: reduxState.info,
-    cartInfo: reduxState.info.cartItems,
-    orderInfo: reduxState.orderInfo,
+    productInfo: reduxState.info.products,
   };
 };
 
