@@ -1,7 +1,7 @@
-import React from "react";
-import { connect } from "react-redux";
-import { fetchProducts } from "../store/products";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { connect } from 'react-redux';
+import { fetchProducts } from '../store/products';
+import { Link } from 'react-router-dom';
 
 export class AllProducts extends React.Component {
   componentDidMount() {
@@ -14,7 +14,7 @@ export class AllProducts extends React.Component {
     return (
       <div className="productsList">
         {!productsArr.length
-          ? ""
+          ? ''
           : productsArr.map((products) => (
               <div key={products.id}>
                 <Link to={`/products/${products.id}`} className="products">
@@ -36,6 +36,7 @@ export class AllProducts extends React.Component {
 }
 
 const mapState = (reduxState) => {
+  console.log(reduxState);
   return {
     products: reduxState.products,
   };

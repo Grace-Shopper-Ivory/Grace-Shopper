@@ -20,12 +20,8 @@ export const fetchProducts = () => {
   };
 };
 
-// let initialState = {
-//   products: [],
-//   product: {},
-// };
-
 export default function products(state = [], action) {
+  console.log(action);
   switch (action.type) {
     case SET_PRODUCTS:
       return [...action.products];
