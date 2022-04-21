@@ -9,12 +9,18 @@ export class UserPage extends React.Component {
   }
   render() {
     console.log(this.props);
+
+    let userInfo = this.props.userInfo.userInfo;
+    let cartInfo = this.props.userInfo.cartInfo;
+    let orderInfo = this.props.userInfo.orderInfo;
+
     return (
       <div className="user-page">
-        <h1>Hello {this.props.userInfo.userInfo.firstName}</h1>
+        <h1>Hello {userInfo.firstName}</h1>
         <div className="cart"></div>
         <div className="orders">
-          <p>Orders info</p>
+          <p></p>
+          <h2>{userInfo.firstName}</h2>
         </div>
         <div className="payment">
           <p>Payment info</p>

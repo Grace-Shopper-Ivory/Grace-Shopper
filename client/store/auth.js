@@ -7,11 +7,13 @@ const TOKEN = 'token';
  * ACTION TYPES
  */
 const SET_AUTH = 'SET_AUTH';
+// const SEND_USER = 'SEND_USER';
 
 /**
  * ACTION CREATORS
  */
 const setAuth = (auth) => ({ type: SET_AUTH, auth });
+const sendUser = (user) => ({ type: SEND_USER, user });
 
 /**
  * THUNK CREATORS
@@ -19,6 +21,7 @@ const setAuth = (auth) => ({ type: SET_AUTH, auth });
 export const me = (username) => async (dispatch) => {
   console.log(username);
   const token = window.localStorage.getItem(TOKEN);
+  // const user = await axios.get(`/users/${username}`);
   if (token) {
     const res = await axios.get('/auth/me', {
       headers: {
@@ -56,6 +59,8 @@ export default function (state = {}, action) {
   switch (action.type) {
     case SET_AUTH:
       return action.auth;
+    // case SEND_USER:
+    //   return action.user;
     default:
       return state;
   }

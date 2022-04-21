@@ -23,10 +23,10 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={AllProducts} />
-            {/* <Route
+            <Route
               path={`/userpage/${this.props.user.id}`}
               component={UserPage}
-            /> */}
+            />
             <Redirect to="/home" />
           </Switch>
         ) : (
@@ -49,6 +49,7 @@ const mapState = (state) => {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
+    user: state.auth,
   };
 };
 
