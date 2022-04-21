@@ -1,10 +1,12 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { Login, Signup } from './components/AuthForm';
-import Home from './components/Home';
-import AllProducts from './components/AllProducts';
-import { me } from './store';
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import { Login, Signup } from "./components/AuthForm";
+import Home from "./components/Home";
+import AllProducts from "./components/AllProducts";
+import SingleProduct from "./components/SingleProduct";
+import { me } from "./store";
+import UserCreate from './components/UserCreate'
 import UserPage from './components/UserPage';
 
 /**
@@ -17,23 +19,22 @@ class Routes extends Component {
 
   render() {
     const { isLoggedIn } = this.props;
-    console.log(this.props);
     return (
       <div>
         {isLoggedIn ? (
           <Switch>
-            <Route path="/home" component={AllProducts} />
+            <Route exact path="/" component={AllProducts} />
             <Route
-              path={`/userpage/${this.props.user.id}`}
-              component={UserPage}
-            />
-            <Redirect to="/home" />
+              path={`/userpage/${this.props.user.id}`} component={UserPage}/>
           </Switch>
         ) : (
           <Switch>
-            <Route path="/" exact component={Login} />
+            <Route exact path="/products" component={AllProducts} />
             <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
+            <Route path="/signup" component={UserCreate} />
+            <Route path="/products/:productId" component={SingleProduct} />
+            <Route exact path="/" component={AllProducts} />
+
           </Switch>
         )}
       </div>
