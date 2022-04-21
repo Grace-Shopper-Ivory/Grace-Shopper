@@ -2,7 +2,6 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-// const axios = require('axios');
 
 const SALT_ROUNDS = 5;
 
@@ -18,33 +17,34 @@ const User = db.define('user', {
   firstName: {
     type: Sequelize.STRING,
     allowNull: false,
-    validate:
-    {notEmpty: true},
+    validate: { notEmpty: true },
   },
   lastName: {
     type: Sequelize.STRING,
     allowNull: false,
-    validate:
-    {notEmpty: true},
+    validate: { notEmpty: true },
   },
   email: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-        isEmail: true,
-        notEmpty: true,
-    }
+      isEmail: true,
+      notEmpty: true,
+    },
   },
   admin: {
     type: Sequelize.BOOLEAN,
-    defaultValue: false
+    defaultValue: false,
   },
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue: 'https://preview.redd.it/uxideg5afmh21.jpg?auto=webp&s=068bc63180e3bb02d8d0d40903657f513f044a53',
+    defaultValue:
+      'https://preview.redd.it/uxideg5afmh21.jpg?auto=webp&s=068bc63180e3bb02d8d0d40903657f513f044a53',
   },
-  
-
+  paymentInfo: {
+    type: Sequelize.STRING,
+    defaultValue: 'XXX-XXX-XXXX',
+  },
 });
 
 module.exports = User;
