@@ -91,6 +91,13 @@ function AllProducts(){
     if(!duplicateCheck) cart.push({productId:product.id,ammount:1})
 
     localStorage.setItem("cart",JSON.stringify(cart))
+
+    //for when we have cart routes figure out
+    if(localStorage.getItem("token")){
+      console.log('USER LOGGED IN')
+    }else{
+      console.log("GUEST")
+    }
   }
 
   //temporary just to see if I can access the items in local storage "cart" as an object instead of a string
@@ -108,7 +115,7 @@ function AllProducts(){
                   <img src={product.img} />
                 </Link>
                 <div>
-                  <p>{product.quantity>0 ? `stock: ${product.quantity}` : `out of stock`}</p>
+                  <p>{product.quantity>0 ? `in stock` : `out of stock`}</p>
                   <button type="button" onClick={()=>handleAddToCart(product)}>add to cart</button> {/*create onClick once we have carts page*/}
                 </div>
               </div>

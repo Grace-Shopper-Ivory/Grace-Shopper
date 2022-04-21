@@ -113,6 +113,9 @@ button:hover {
 #all-products>div>a>h2{
   margin:0px;
 }
-#all-products>div>button{
-  margin-top:0;
+#all-products>div>div{
+  width:100%;
+  display:flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
