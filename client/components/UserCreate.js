@@ -48,33 +48,52 @@ function UserCreate(){
             console.log("password mismatch")
         }
     }
+    
     return(
-        <form id='todo-form' onSubmit={handleSubmit}>
+        <div id='user-create'>
             <h2>Signup</h2>
-            <label htmlFor='firstName'>first name: {hideRequiredFlag ? "" : <span className = "required"> *required</span>}</label>
-            <input name='firstName' value={user.firstName} onChange={(event)=>setUser({...user, firstName:event.target.value})}/>
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label htmlFor='firstName'>first name {hideRequiredFlag ? "" : <span className = "required"> *required</span>}</label>
+                    <input name='firstName' value={user.firstName} onChange={(event)=>setUser({...user, firstName:event.target.value})}/>
+                </div>
 
-            <label htmlFor='lastName'>last name: {hideRequiredFlag ? "" : <span className = "required"> *required</span>}</label>
-            <input name='lastName' value={user.lastName} onChange={(event)=>setUser({...user, lastName:event.target.value})}/>
+                <div>
+                    <label htmlFor='lastName'>last name {hideRequiredFlag ? "" : <span className = "required"> *required</span>}</label>
+                    <input name='lastName' value={user.lastName} onChange={(event)=>setUser({...user, lastName:event.target.value})}/>
+                </div>
 
-            <label htmlFor='email'>email: {hideRequiredFlag ? "" : <span className = "required"> *required</span>}</label>
-            <input name='email' type="email" value={user.email} onChange={(event)=>setUser({...user, email:event.target.value})}/>
+                <div>
+                    <label htmlFor='email'>email {hideRequiredFlag ? "" : <span className = "required"> *required</span>}</label>
+                    <input name='email' type="email" value={user.email} onChange={(event)=>setUser({...user, email:event.target.value})}/>
+                </div>
 
-            <label htmlFor='username'>username: {hideRequiredFlag ? "" : <span className = "required"> *required</span>}</label>
-            <input name='username' value={user.username} onChange={(event)=>setUser({...user, username:event.target.value})}/>
+                <div>
+                    <label htmlFor='username'>username {hideRequiredFlag ? "" : <span className = "required"> *required</span>}</label>
+                    <input name='username' value={user.username} onChange={(event)=>setUser({...user, username:event.target.value})}/>
+                </div>
 
-            <label htmlFor='password'>password: {hideRequiredFlag ? "" : <span className = "required"> *required</span>}</label>
-            <input name='password' type="password" value={user.password} onChange={(event)=>setUser({...user, password:event.target.value})}/>
+                <div>
+                    <label htmlFor='password'>password {hideRequiredFlag ? "" : <span className = "required"> *required</span>}</label>
+                    <input name='password' type="password" value={user.password} onChange={(event)=>setUser({...user, password:event.target.value})}/>
+                </div>
 
-            <label htmlFor='confirmPassword'>confirm password: {hideRequiredFlag ? "" : <span className = "required"> *required</span>}</label>
-            <input name='confirmPassword' type="password" value={user.confirmPassword} onChange={(event)=>setUser({...user, confirmPassword:event.target.value})}/>
+                <div>
+                    <label htmlFor='confirmPassword'>confirm password {hideRequiredFlag ? "" : <span className = "required"> *required</span>}</label>
+                    <input name='confirmPassword' type="password" value={user.confirmPassword} onChange={(event)=>setUser({...user, confirmPassword:event.target.value})}/>
+                </div>
 
-            <label htmlFor='img'>image URL:</label>
-            <input name='img' value={user.img} onChange={(event)=>setUser({...user, img:event.target.value})}/>
-  
-            <button type='submit'>submit</button>
-            <Link to='/'>cancel</Link>
-        </form>
+                <div>
+                    <label htmlFor='img'>image URL</label>
+                    <input name='img' value={user.img} onChange={(event)=>setUser({...user, img:event.target.value})}/>
+                </div>
+
+                <div className="submit-buttons">
+                    <button type='submit'>submit</button>
+                    <button type='button'><Link to='/'>cancel</Link></button>
+                </div>
+            </form>
+        </div>
     )
 
 }
