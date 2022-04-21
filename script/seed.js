@@ -6,15 +6,52 @@ const {db, models: {User, Product} } = require('../server/db')
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
  */
+
+
 async function seed() {
   await db.sync({ force: true }) // clears db and matches models to tables
   console.log('db synced!')
 
   // Creating Users
-  const users = await Promise.all([
-    User.create({ username: 'cody', password: '123' }),
-    User.create({ username: 'murphy', password: '123' }),
-  ])
+  const users = [
+    {
+      username: "Cody",
+      password: '123',
+      firstName: 'Cody',
+      lastName: 'Lester',
+      email: 'kcodylester@gmail.com',
+      admin: true,
+      imageUrl: 'https://www.tasteofhome.com/wp-content/uploads/2020/05/scored-bread.jpg',
+    },
+    {
+      username: "Eric",
+      password: '123',
+      firstName: 'Eric',
+      lastName: 'Jiang',
+      email: 'eric@gmail.com',
+      admin: true,
+      imageUrl: 'https://i.pinimg.com/originals/eb/86/b3/eb86b3a51af7703a44ebb5ee4657b5ed.jpg',
+    },
+    {
+      username: "Ethan",
+      password: '123',
+      firstName: 'Ethan',
+      lastName: 'Bradley',
+      email: 'ethan@gmail.com',
+      admin: true,
+      imageUrl: 'https://i1.wp.com/bakethisday.com/wp-content/uploads/2013/02/bread-love-1.jpg?fit=450%2C450&ssl=1',
+    },
+    {
+      username: "Mason",
+      password: '123',
+      firstName: 'Mason',
+      lastName: 'Swager',
+      email: 'Mason@gmail.com',
+      admin: false,
+      imageUrl: 'https://i.pinimg.com/originals/6c/eb/11/6ceb110780c987ecb8fc6c627941418c.jpg',
+    },
+  ]
+
 
   const products = [
     {
@@ -43,6 +80,9 @@ async function seed() {
   await Promise.all(
     products.map((product)=>{
       return Product.create(product) //changed from (...product)
+    }),
+    users.map((user)=>{
+      return User.create(user) 
     })
   )
 

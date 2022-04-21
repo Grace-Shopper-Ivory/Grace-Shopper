@@ -1,6 +1,6 @@
-import Axios from "axios";
+import axios from 'axios';
 
-const SET_PRODUCTS = "SET_PRODUCTS";
+const SET_PRODUCTS = 'SET_PRODUCTS';
 
 export const setProducts = (products) => {
   return {
@@ -12,10 +12,10 @@ export const setProducts = (products) => {
 export const fetchProducts = () => {
   return async (dispatch) => {
     try {
-      const { data } = await Axios.get("api/products");
+      const { data } = await axios.get('api/products');
       dispatch(setProducts(data));
     } catch (err) {
-      console.log("ERROR", err);
+      console.log('ERROR', err);
     }
   };
 };
