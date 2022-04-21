@@ -13,6 +13,7 @@ async function seed() {
   console.log('db synced!')
 
   // Creating Users
+  //start
   const users = [
     {
       username: "Cody",
