@@ -12,11 +12,17 @@ export class SingleProduct extends React.Component {
   }
 
   render() {
-    console.log(this.props);
-
+    const singleProduct = this.props.singleProduct;
     return (
       <div className="singleProduct">
-        <h2>single</h2>
+        <h2>{singleProduct.name}</h2>
+        <h3> $ {singleProduct.price}</h3>
+        <p>
+          <b>About this item: </b>
+          <span>{<br />}</span>
+          {singleProduct.description}
+        </p>
+        <img src={singleProduct.img} />
       </div>
     );
   }
