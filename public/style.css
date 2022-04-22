@@ -48,7 +48,8 @@ button:active {
 }
 
 button:hover {
-  cursor:pointer
+  cursor:pointer;
+  background-color: rgba(157,208,23,255);
 }
 
 .required {
@@ -86,4 +87,35 @@ button:hover {
 .submit-buttons{
   display: flex;
   justify-content: center;
+}
+
+/* AllProducts */
+#all-products{
+  display:flex;
+  justify-content: center;
+  margin: 5%;
+  flex-flow:wrap;
+  border:solid rgb(56,52,53,255);
+}
+#all-products>div{
+  display:flex;
+  flex-direction: column;;
+  align-items: center;
+  width: 300px;
+  margin: 15px;
+}
+#all-products>div>a{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  margin:0px;
+}
+#all-products>div>a>h2{
+  margin:0px;
+}
+#all-products>div>div{
+  width:100%;
+  display:flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
