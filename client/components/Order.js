@@ -21,7 +21,7 @@ export class Order extends React.Component {
          <h1>
           Hello {order.firstName} {order.lastName}
         </h1>
-            <div className="cart">
+            <div className="order">
             <h2>{order.firstName}'s SHOPPING CART:</h2>
             {!products.length
                 ? ''
@@ -32,8 +32,16 @@ export class Order extends React.Component {
                     <div key={product.id}>
                         <Link to={`/products/${product.id}`} className="products">
                         <h2>{product.name}</h2>
-                        </Link>
                         <img src={product.img} />
+                        </Link>
+
+                        <a>{product.amount}</a>
+                        <a>price $ {product.price}</a>
+
+                        <button type="button" onClick={()=>handleAddToCart(product)}>increase</button> 
+                        <button type="button" onClick={()=>handleAddToCart(product)}>decrease</button> 
+                        <button type="button" onClick={()=>handleAddToCart(product)}>delete</button> 
+
                     </div>
                     )
                 )}

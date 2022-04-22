@@ -25,20 +25,34 @@ router.get('/:id', async (req, res, next) => {
     next(err);
   }
 });
-
-router.put("/:userId/:productId", async (req, res, next) => {
+router.get("/:userId/:productId", async (req, res, next) => {
   try {
     const cart = await Order.findOne({
       where: {
         userId: req.params.userId,
         productId: req.params.productId,
+        inCart: true,
       },
     });
-    res.json(await cart.update(req.body.amount));
+    res.json(cart);
   } catch (err) {
     next(err);
   }
 });
+// router.put("/:userId/:productId", async (req, res, next) => {
+//   try {
+//     const cart = await Order.findOne({
+//       where: {
+//         userId: req.params.userId,
+//         productId: req.params.productId,
+//         inCart: true,
+//       },
+//     });
+//     res.json(await cart.update(req.body.amount));
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
 module.exports = router;
 // router.get('/:id', async (req, res, next) => {
