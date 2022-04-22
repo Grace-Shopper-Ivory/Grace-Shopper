@@ -11,20 +11,16 @@ export class Order extends React.Component {
     //console.log(this.props);
 
     // let userInfo = this.props.userInfo.userInfo;
-    let order = this.props.order || {};
-    //let products = order.products || [];
-    console.log("this.props",this.props);
-    // console.log('order',this.props.order);
-    // console.log('order order', this.props.order.order);
-    // console.log('order admin', this.props.order.cart.);
-
-
+    let order = this.props.order.order || {};
+    let products = order.products || [];
+    //let userInfo = order.userInfo || [];
+    console.log("this.products ",products);
 
     
 
     return (
-        <div className="user-page">hello
-        {/* <h1>
+        <div className="user-page">
+         <h1>
           Hello {order.firstName} {order.lastName}
         </h1>
             <div className="cart">
@@ -43,7 +39,7 @@ export class Order extends React.Component {
                     </div>
                     )
                 )}
-            </div>*/}
+            </div>
         </div> 
 
     );
