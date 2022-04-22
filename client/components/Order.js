@@ -10,10 +10,8 @@ export class Order extends React.Component {
   render() {
     //console.log(this.props);
 
-    // let userInfo = this.props.userInfo.userInfo;
     let order = this.props.order.order || {};
     let products = order.products || [];
-    //let userInfo = order.userInfo || [];
     console.log("this.products ",products);
 
     
@@ -24,7 +22,7 @@ export class Order extends React.Component {
           Hello {order.firstName} {order.lastName}
         </h1>
             <div className="cart">
-            <h2>Cart Info:</h2>
+            <h2>{order.firstName}'s SHOPPING CART:</h2>
             {!products.length
                 ? ''
                 : products.map((product) =>
