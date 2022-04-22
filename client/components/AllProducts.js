@@ -100,12 +100,6 @@ function AllProducts(){
     }
   }
 
-  //temporary just to see if I can access the items in local storage "cart" as an object instead of a string
-  const temp=()=>{
-    const cart = JSON.parse(localStorage.getItem("cart"))
-    console.log('CART LOOKS LIKE: ',cart)
-  }
-
   return(
     <div id="all-products">
         {!productsArr.length ? "" : productsArr.map((product) => (
@@ -120,7 +114,6 @@ function AllProducts(){
                 </div>
               </div>
             ))}
-            <button type="button" onClick={()=>{temp()}}></button>
       </div>
   )
 }
