@@ -100,6 +100,7 @@ function AllProducts(){
     }
   }
 
+
   return(
     <div id="all-products">
         {!productsArr.length ? "" : productsArr.map((product) => (
