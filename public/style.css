@@ -127,3 +127,33 @@ button:hover {
   justify-content: space-between;
   align-items: flex-start;
 }
+/*ORDERS Page*/
+#order{
+  display:flex;
+  justify-content: center;
+  margin: 5%;
+  flex-flow:wrap;
+  border:solid rgb(56,52,53,255);
+}
+#order>div{
+  display:flex;
+  flex-direction: column;;
+  align-items: center;
+  width: 300px;
+  margin: 15px;
+}
+#order>div>a{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  margin:0px;
+}
+#order>div>a>h2{
+  margin:0px;
+}
+#order>div>div{
+  width:100%;
+  display:flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}

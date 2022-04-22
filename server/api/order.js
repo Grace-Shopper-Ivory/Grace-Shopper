@@ -25,23 +25,34 @@ router.get('/:id', async (req, res, next) => {
     next(err);
   }
 });
-
-// router.put('/:id/:productid', async (req, res, next) => {
+router.get("/:userId/:productId", async (req, res, next) => {
+  try {
+    const cart = await Order.findOne({
+      where: {
+        userId: req.params.userId,
+        productId: req.params.productId,
+        inCart: true,
+      },
+    });
+    res.json(cart);
+  } catch (err) {
+    next(err);
+  }
+});
+// router.put("/:userId/:productId", async (req, res, next) => {
 //   try {
-//     const cart = await User.findByPk(req.params.id.productid);
-//     res.send( await cart.update(req.body))
-    
-
-//     user.dataValues.cartItems = await Order.findAll({
+//     const cart = await Order.findOne({
 //       where: {
-//         userId: req.params.id,
+//         userId: req.params.userId,
+//         productId: req.params.productId,
 //         inCart: true,
 //       },
 //     });
-//     res.json(user);
+//     res.json(await cart.update(req.body.amount));
 //   } catch (err) {
 //     next(err);
 //   }
+// });
 
 module.exports = router;
 // router.get('/:id', async (req, res, next) => {
