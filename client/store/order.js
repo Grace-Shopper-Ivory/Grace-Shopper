@@ -5,7 +5,7 @@ const SET_ORDER = 'SET_ORDER';
 export const setOrder = (order) => {
     return {
       type: SET_ORDER,
-      cart,
+      order,
     };
   };
 
@@ -13,20 +13,22 @@ export const setOrder = (order) => {
     return async (dispatch) => {
       try {
         const { data } = await axios.get(`/api/order/${id}`);
-        dispatch(setCart(data));
+        dispatch(setOrder(data));
       } catch (err) {
         console.log('ERROR', err);
       }
     };
   };
 
-  export default function products(state = [], action) {
+  // let intialState = {
+  //   order: [],
+  // };
+
+  export default function products(state = {}, action) {
     switch (action.type) {
       case SET_ORDER:
         return {
-          userInfo: action.info,
-          cartInfo: action.info.cartItems,
-          orderInfo: action.info.orders,
+          order: action.order,
         };
       default:
         return state;
