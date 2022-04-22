@@ -26,37 +26,20 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-// router.put('/:id/:productid', async (req, res, next) => {
-//   try {
-//     const cart = await User.findByPk(req.params.id.productid);
-//     res.send( await cart.update(req.body))
+router.delete('/:productId/:userId', async (req, res, next) => {
+  try {
+     const cart = await Order.findOne({
+       where: {
+         userId: req.params.userId,
+         productId: req.params.productId,
+         inCart: true
+       },
+    });
+    res.json(cart);
+  } catch (err) {
+    next(err);
+  }
+});
 
-
-//     user.dataValues.cartItems = await Order.findAll({
-//       where: {
-//         userId: req.params.id,
-//         inCart: true,
-//       },
-//     });
-//     res.json(user);
-//   } catch (err) {
-//     next(err);
-//   }
 
 module.exports = router;
-// router.get('/:id', async (req, res, next) => {
-//   try {
-//     const user = await User.findByPk(req.params.id);
-//     // user.dataValues.orders = await Order.findAll({
-//     //   where: {
-//     //     userId: req.params.id,
-//     //     inCart: false,
-//     //   },
-//     // });
-
-//     user.dataValues.cartItems = await Order.findAll({
-//       where: {
-//         userId: req.params.id,
-//         inCart: true,
-//       },
-//     });
