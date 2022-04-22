@@ -35,6 +35,7 @@ export const authenticate =
       const res = await axios.post(`/auth/${method}`, { username, password });
       window.localStorage.setItem(TOKEN, res.data.token);
       dispatch(me(username));
+    history.push(`/`)
     } catch (authError) {
       return dispatch(setAuth({ error: authError }));
     }
@@ -42,10 +43,12 @@ export const authenticate =
 
 export const signup = (user) => async (dispatch) => {
   try {
-    const res = await axios.post(`/auth/signup`, user);
-    window.localStorage.setItem(TOKEN, res.data.token);
-    dispatch(me());
+
+    const res = await axios.post(`/auth/signup`, user)
+    window.localStorage.setItem(TOKEN, res.data.token)
+    dispatch(me())
     history.push('/');
+
   } catch (authError) {
     return dispatch(setAuth({ error: authError }));
   }

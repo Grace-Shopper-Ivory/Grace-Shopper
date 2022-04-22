@@ -8,6 +8,8 @@ import SingleProduct from './components/SingleProduct';
 import { me } from './store';
 import UserCreate from './components/UserCreate';
 import UserPage from './components/UserPage';
+import Order from './components/Order';
+
 
 /**
  * COMPONENT
@@ -23,10 +25,13 @@ class Routes extends Component {
       <div>
         {isLoggedIn ? (
           <Switch>
-            <Route exact path="/" component={AllProducts} />
-            <Route path={`/userpage/:id`} component={UserPage} />
-            <Route path="/products/:productId" component={SingleProduct} />
+
             <Route exact path="/products" component={AllProducts} />
+            <Route path={`/userpage/:id`} component={UserPage} />
+            <Route path={`/order`} component={Order}/>
+            <Route path="/products/:productId" component={SingleProduct} />
+            <Route path="/" component={AllProducts} />
+
           </Switch>
         ) : (
           <Switch>
