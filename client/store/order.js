@@ -31,6 +31,7 @@ export const setOrder = (order) => {
   export const deleteOrder = (productId, userId) => {
     return async (dispatch) => {
       try {
+        console.log(productId, userId)
         const { data: order } = await axios.delete(`/api/order/${productId}/${userId}`)
         console.log(order)
         // await order.destroy();
