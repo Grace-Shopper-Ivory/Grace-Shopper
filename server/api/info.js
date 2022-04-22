@@ -5,20 +5,28 @@ const {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.id);
-    user.dataValues.orders = await Order.findAll({
+    const user = await User.findOne({
       where: {
-        userId: req.params.id,
-        inCart: false,
+        id: req.params.id,
       },
+      include: [Product],
     });
+    // user.dataValues.orders = await Order.findAll({
+    //   where: {
+    //     userId: req.params.id,
+    //     inCart: false,
+    //   },
+    //   include: [Product],
+    // });
 
-    user.dataValues.cartItems = await Order.findAll({
-      where: {
-        userId: req.params.id,
-        inCart: true,
-      },
-    });
+    // let cartItems = await Order.findAll({
+    //   where: {
+    //     userId: req.params.id,
+    //     inCart: true,
+    //   },
+    // });
+    // console.log(cartItems.map((cartItems) => cartItems.order.);
+
     res.json(user);
   } catch (err) {
     next(err);

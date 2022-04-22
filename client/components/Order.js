@@ -5,33 +5,54 @@ import { Link } from 'react-router-dom';
 
 export class Order extends React.Component {
   componentDidMount() {
-    this.props.fetchInfoThunk(this.props.match.params.id);
+    this.props.fetchOrderThunk(this.props.id);
   }
   render() {
-    console.log(this.props);
+    //console.log(this.props);
 
     // let userInfo = this.props.userInfo.userInfo;
-    // let cartOrder = this.props.user.cartOrder;
+    let order = this.props.order || {};
+    //let products = order.products || [];
+    console.log("this.props",this.props);
+    // console.log('order',this.props.order);
+    // console.log('order order', this.props.order.order);
+    // console.log('order admin', this.props.order.cart.);
+
+
+
     
 
     return (
-      <div className="user-page"> hello
-        <h1>Hello {user.firstName}</h1>
-        {/* <div className="cart"></div>
-        <div className="orders">
-          <p></p>
-          <h2>{userInfo.firstName}</h2>
-        </div>
-        <div className="payment">
-          <p>Payment info</p>
-        </div> */}
-      </div>
+        <div className="user-page">hello
+        {/* <h1>
+          Hello {order.firstName} {order.lastName}
+        </h1>
+            <div className="cart">
+            <h2>Cart Info:</h2>
+            {!products.length
+                ? ''
+                : products.map((product) =>
+                    product.order.inCart ? (
+                    ''
+                    ) : (
+                    <div key={product.id}>
+                        <Link to={`/products/${product.id}`} className="products">
+                        <h2>{product.name}</h2>
+                        </Link>
+                        <img src={product.img} />
+                    </div>
+                    )
+                )}
+            </div>*/}
+        </div> 
+
     );
   }
 }
 const mapState = (reduxState) => {
   return {
     order: reduxState.order,
+    id: reduxState.auth.id,
   };
 };
 
