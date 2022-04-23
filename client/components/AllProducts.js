@@ -1,6 +1,7 @@
 import React, {useState,useEffect} from "react";
 import { connect,useDispatch,useSelector } from "react-redux";
 import product, { fetchProducts } from "../store/products";
+import { setGuestCart } from "../store";
 import { Link } from "react-router-dom";
 
 
@@ -105,6 +106,7 @@ function AllProducts(){
       console.log('USER LOGGED IN')
     }else{
       console.log("GUEST")
+      dispatch(setGuestCart(JSON.parse(localStorage.getItem("cart"))))
     }
     console.log(amount)
   }
@@ -112,7 +114,6 @@ function AllProducts(){
   const changeAmount=(product,targetAmount)=>{
     amount[product]=targetAmount
     console.log(amount)
-
   }
 
 
