@@ -67,14 +67,21 @@ import { Link } from "react-router-dom";
 // export default connect(mapState, mapDispatch)(AllProducts);
 
 function AllProducts(){
-
   const dispatch = useDispatch()
+  let amount = {}
 
   const productsArr = useSelector((state=>state.products))
 
   useEffect(()=>{
     dispatch(fetchProducts())
   },[])
+
+  useEffect(()=>{
+    productsArr.forEach((elem)=>{
+      amount[elem.id]=1
+    })
+    console.log(amount)
+  },[productsArr])
 
   const handleAddToCart=(product)=>{
     let cart = JSON.parse(localStorage.getItem("cart"))
@@ -84,12 +91,12 @@ function AllProducts(){
     let duplicateCheck = false
     for(let i=0;i<cart.length;i++){
       if(cart[i]["productId"]===product.id){
-        cart[i]["ammount"]++
+        cart[i]["amount"]+=amount[product.id]
         duplicateCheck = true
       }
     }
 
-    if(!duplicateCheck) cart.push({productId:product.id,ammount:1})
+    if(!duplicateCheck) cart.push({productId:product.id,amount:amount[product.id]})
 
     localStorage.setItem("cart",JSON.stringify(cart))
 
@@ -99,6 +106,13 @@ function AllProducts(){
     }else{
       console.log("GUEST")
     }
+    console.log(amount)
+  }
+
+  const changeAmount=(product,targetAmount)=>{
+    amount[product]=targetAmount
+    console.log(amount)
+
   }
 
 
@@ -112,6 +126,7 @@ function AllProducts(){
                 </Link>
                 <div>
                   <p>{product.quantity>0 ? `in stock` : `out of stock`}</p>
+                  <input type="number" min="1" max={product.quantity} size="2" onChange={(event)=>{changeAmount(product.id,Number(event.target.value))}}></input>
                   <button type="button" onClick={()=>handleAddToCart(product)}>add to cart</button> {/*create onClick once we have carts page*/}
                 </div>
               </div>
