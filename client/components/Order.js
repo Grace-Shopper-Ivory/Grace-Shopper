@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchOrder } from "../store/order";
+import { fetchOrder, editOrder } from "../store/order";
 import { Link } from "react-router-dom";
 
 export class Order extends React.Component {
@@ -11,8 +11,8 @@ export class Order extends React.Component {
     let order = this.props.order.order || {};
     let products = order.products || [];
 
-    console.log(products);
-
+    // console.log(`PROPS`);
+    // console.log(this.props);
     return (
       <div className="user-page">
         <h1>
@@ -27,21 +27,43 @@ export class Order extends React.Component {
                   <div key={product.id}>
                     <Link to={`/products/${product.id}`} className="products">
                       <h2>{product.name}</h2>
-                      <img src={product.img} />
                     </Link>
 
-                    <a>Quantity: {product.amount}</a>
+                    <img src={product.img} />
+                    <span>{<br />}</span>
+
+                    <a>Quantity: {product.order.amount} </a>
                     <a>Price: $ {product.price}</a>
+                    <span>{<br />}</span>
 
                     <button
                       type="button"
-                      onClick={() => handleAddToCart(product)}
+                      onClick={() =>
+                        // console.log(
+                        //   `ORDER ID: ${order.id}`,
+                        //   `PRODUCT ID: ${product.id}`,
+                        //   `PRODUCT AMOUNT: ${product.order.amount + 1}`
+                        // )
+
+                        //grabs all variables correctly
+                        this.props.handleCartChange(
+                          order.id,
+                          product.id,
+                          product.order.amount + 1
+                        )
+                      }
                     >
                       Increase
                     </button>
                     <button
                       type="button"
-                      onClick={() => handleAddToCart(product)}
+                      onClick={() =>
+                        this.props.handleCartChange(
+                          order.id,
+                          product.id,
+                          product.order.amount - 1
+                        )
+                      }
                     >
                       Decrease
                     </button>
@@ -71,6 +93,8 @@ const mapState = (reduxState) => {
 const mapDispatch = (dispatch) => {
   return {
     fetchOrderThunk: (id) => dispatch(fetchOrder(id)),
+    handleCartChange: (orderId, productId, quantity) =>
+      dispatch(editOrder(orderId, productId, quantity)),
   };
 };
 
