@@ -3,6 +3,7 @@ import { connect,useDispatch,useSelector } from "react-redux";
 import product, { fetchProducts } from "../store/products";
 import { Link } from "react-router-dom";
 
+
 // export class AllProducts extends React.Component {
 //   componentDidMount() {
 //     this.props.fetchProductsThunk();
