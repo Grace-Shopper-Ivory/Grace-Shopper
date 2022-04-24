@@ -82,8 +82,6 @@ function AllProducts(){
     if(localStorage.getItem("token")){
       console.log('USER LOGGED IN')
     }else{
-      let cart = guestCart
-      console.log(cart)
       if(amount[product.id]){
         dispatch(addToGuestCart(product.id,amount[product.id]))
       }else{
@@ -96,7 +94,6 @@ function AllProducts(){
     amount[product]=targetAmount
   }
 
-
   return(
     <div id="all-products">
         {!productsArr.length ? "" : productsArr.map((product) => (
@@ -108,7 +105,7 @@ function AllProducts(){
                 <div>
                   <p>{product.quantity>0 ? `in stock` : `out of stock`}</p>
                   <input type="number" min="1" max={product.quantity} size="2" onChange={(event)=>{changeAmount(product.id,Number(event.target.value))}}></input>
-                  <button type="button" onClick={()=>handleAddToCart(product)}>add to cart</button> {/*create onClick once we have carts page*/}
+                  <button type="button" onClick={()=>handleAddToCart(product)}>add to cart</button>
                 </div>
               </div>
             ))}
