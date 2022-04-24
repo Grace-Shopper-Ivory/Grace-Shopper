@@ -19,9 +19,15 @@ export class SingleProduct extends React.Component {
       console.log(err);
     }
   }
+  componentDidUpdate(prevProps){
+    if(prevProps.singleProduct.id !== this.props.singleProduct.id){
+      this.setState({price:this.props.singleProduct.price})
+    }
+
+  }
 
   changeAmount=(targetAmount)=>{
-    this.setState({amount:targetAmount})
+    this.setState({amount:targetAmount, price:targetAmount*this.props.singleProduct.price})
   }
 
   handleAddToCart= async (product)=>{
@@ -34,7 +40,6 @@ export class SingleProduct extends React.Component {
 
   render() {
     const singleProduct = this.props.singleProduct;
-    const amount = {}
     return (
       <div className="singleProduct">
         <Link to="/products"> Back To All Products</Link>
@@ -46,7 +51,9 @@ export class SingleProduct extends React.Component {
           {singleProduct.description}
         </p>
         <img src={singleProduct.img} />
+        <p>{this.props.singleProduct.quantity>0 ? `in stock` : `out of stock`}</p>
         <input type="number" min="1" max={singleProduct.quantity} size="2" onChange={(event)=>{this.changeAmount(Number(event.target.value))}}></input>
+        <p>{Number(this.state.price).toFixed(2)}</p>
         <button type="button" onClick={()=>this.handleAddToCart(singleProduct)}>add to cart</button>
       </div>
     );
