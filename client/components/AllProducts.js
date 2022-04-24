@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from "react";
 import { connect,useDispatch,useSelector } from "react-redux";
 import product, { fetchProducts } from "../store/products";
-import { setGuestCart } from "../store";
+import { setGuestCart, addToGuestCart } from "../store";
 import { Link } from "react-router-dom";
 
 
@@ -72,48 +72,28 @@ function AllProducts(){
   let amount = {}
 
   const productsArr = useSelector((state=>state.products))
+  const guestCart = useSelector((state=>state.guestCart))
 
   useEffect(()=>{
     dispatch(fetchProducts())
   },[])
 
-  useEffect(()=>{
-    productsArr.forEach((elem)=>{
-      amount[elem.id]=1
-    })
-    console.log(amount)
-  },[productsArr])
-
-  const handleAddToCart=(product)=>{
-    let cart = JSON.parse(localStorage.getItem("cart"))
-
-    if(!cart) cart = []
-
-    let duplicateCheck = false
-    for(let i=0;i<cart.length;i++){
-      if(cart[i]["productId"]===product.id){
-        cart[i]["amount"]+=amount[product.id]
-        duplicateCheck = true
-      }
-    }
-
-    if(!duplicateCheck) cart.push({productId:product.id,amount:amount[product.id]})
-
-    localStorage.setItem("cart",JSON.stringify(cart))
-
-    //for when we have cart routes figure out
+  const handleAddToCart= async (product)=>{
     if(localStorage.getItem("token")){
       console.log('USER LOGGED IN')
     }else{
-      console.log("GUEST")
-      dispatch(setGuestCart(JSON.parse(localStorage.getItem("cart"))))
+      let cart = guestCart
+      console.log(cart)
+      if(amount[product.id]){
+        dispatch(addToGuestCart(product.id,amount[product.id]))
+      }else{
+        dispatch(addToGuestCart(product.id,1))
+      }
     }
-    console.log(amount)
   }
 
   const changeAmount=(product,targetAmount)=>{
     amount[product]=targetAmount
-    console.log(amount)
   }
 
 

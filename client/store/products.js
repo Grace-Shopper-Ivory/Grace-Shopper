@@ -21,7 +21,7 @@ export const fetchProducts = () => {
 };
 
 export default function products(state = [], action) {
-  console.log(action);
+  //console.log(action);
   switch (action.type) {
     case SET_PRODUCTS:
       return [...action.products];
