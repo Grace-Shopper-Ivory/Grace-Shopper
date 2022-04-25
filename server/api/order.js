@@ -73,7 +73,7 @@ router.post('/:productId/:userId', async (req, res, next) => {
         }
       })
       console.log("the body!",req.body)
-      res.json(await inCart.update(req.body));
+      res.json(await inCart.update({amount: inCart.amount + req.body.amount}));
     }catch(error){
       res.status(201).send(await Order.create(req.body));
     }

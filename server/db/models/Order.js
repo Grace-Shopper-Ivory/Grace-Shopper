@@ -5,7 +5,8 @@ const Order = db.define('order', {
   Orderid: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
-    primaryKey: true
+    primaryKey: true,
+    unique: true,
   },
   userId: {
     type: Sequelize.INTEGER,

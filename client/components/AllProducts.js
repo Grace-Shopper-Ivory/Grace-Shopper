@@ -72,6 +72,7 @@ import { Link } from "react-router-dom";
 function AllProducts(){
   const dispatch = useDispatch()
   let amount = {}
+  let quantity
 
   const productsArr = useSelector((state=>state.products))
   const guestCart = useSelector((state=>state.guestCart))
@@ -85,10 +86,15 @@ function AllProducts(){
   const handleAddToCart= async (product)=>{
     if(localStorage.getItem("token")){
       console.log('USER LOGGED IN')
+      if (amount[product.id]) {
+        quantity = amount[product.id]
+      } else {
+        quantity = 1;
+      }
       const toCart = {
         userId: userInfo.id,
         productId: product.id,
-        amount: product.quantity,
+        amount: quantity,
         priceOfItem: parseFloat(product.price)
       }
       dispatch(addToCart(toCart))
