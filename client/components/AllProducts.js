@@ -1,6 +1,7 @@
 import React, {useState,useEffect} from "react";
 import { connect,useDispatch,useSelector } from "react-redux";
-import product, { fetchProducts } from "../store/products";
+
+import product, { fetchProducts, addToCart } from "../store/products";
 import { setGuestCart, addToGuestCart } from "../store";
 import { Link } from "react-router-dom";
 
@@ -67,12 +68,15 @@ import { Link } from "react-router-dom";
 
 // export default connect(mapState, mapDispatch)(AllProducts);
 
+
 function AllProducts(){
   const dispatch = useDispatch()
   let amount = {}
 
   const productsArr = useSelector((state=>state.products))
   const guestCart = useSelector((state=>state.guestCart))
+
+  const userInfo = useSelector((state=>state.auth))
 
   useEffect(()=>{
     dispatch(fetchProducts())
@@ -81,6 +85,13 @@ function AllProducts(){
   const handleAddToCart= async (product)=>{
     if(localStorage.getItem("token")){
       console.log('USER LOGGED IN')
+      const toCart = {
+        userId: userInfo.id,
+        productId: product.id,
+        amount: product.quantity,
+        priceOfItem: parseFloat(product.price)
+      }
+      dispatch(addToCart(toCart))
     }else{
       if(amount[product.id]){
         dispatch(addToGuestCart(product.id,amount[product.id]))
@@ -104,7 +115,8 @@ function AllProducts(){
                 </Link>
                 <div>
                   <p>{product.quantity>0 ? `in stock` : `out of stock`}</p>
-                  <input type="number" min="1" max={product.quantity} size="2" onChange={(event)=>{changeAmount(product.id,Number(event.target.value))}}></input>
+
+                  <input defaultValue= '1' type="number" min="1" max={product.quantity} size="2" onChange={(event)=>{changeAmount(product.id,Number(event.target.value))}}></input>
                   <button type="button" onClick={()=>handleAddToCart(product)}>add to cart</button>
                 </div>
               </div>

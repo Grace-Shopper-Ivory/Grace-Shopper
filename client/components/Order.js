@@ -11,15 +11,18 @@ export class Order extends React.Component {
   render() {
     let order = this.props.order.order || {};
     let products = order.products || [];
+    //console.log("this.products ",products);
 
     let preTaxTotal = 0;
     let taxPrice = preTaxTotal * 0.0875;
+
 
     return (
       <div className="user-page">
         <h1>
           Hello {order.firstName} {order.lastName}
         </h1>
+
         <div className="order">
           <h2>{order.firstName}'s Shopping Cart:</h2>
           {!products.length
@@ -28,7 +31,6 @@ export class Order extends React.Component {
                 const quantity = product.order.amount;
                 const price = product.price;
                 const subtotal = quantity * price;
-
                 return product.order.inCart ? (
                   <div key={product.id}>
                     <Link to={`/products/${product.id}`} className="products">
