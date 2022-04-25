@@ -4,20 +4,27 @@ import { Link } from 'react-router-dom';
 import { logout,setGuestCart } from '../store';
 import auth from '../store/auth';
 
+
 const Navbar = ({ handleClick, isLoggedIn, userInfo }) => (
   <div>
-    <h1>FS-App-Template</h1>
-    <nav>
+    <header>
+      <h1>The Market of Bread Stapled to Trees</h1>
+        <img src="https://i.ibb.co/rkVtJL6/image.png" className="logo" />
+
+        <Link to={`/userpage/${userInfo.id}`}>
+        <img src={userInfo.imageUrl} className="usericon"/>
+        </Link>
       {isLoggedIn ? (
         <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/">Home</Link>
-          <Link to={`/userpage/${userInfo.id}`}>Userpage</Link>
-          <Link to={`/order`}>Shopping Cart</Link>
+          <div>
+            {/* The navbar will show these links after you log in */}
+            <Link to="/">Home</Link>
+            <Link to={`/userpage/${userInfo.id}`}>Userpage</Link>
+            <Link to={`/order`}>Shopping Cart</Link>
+            
 
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
+            <a href="#" onClick={handleClick}>Logout</a>
+          </div>
         </div>
       ) : (
         <div>
@@ -26,7 +33,7 @@ const Navbar = ({ handleClick, isLoggedIn, userInfo }) => (
           <Link to="/signup">Sign Up</Link>
         </div>
       )}
-    </nav>
+    </header>
     <hr />
   </div>
 );

@@ -21,6 +21,7 @@ export const setOrder = (order) => {
     type: SET_ORDER,
     order,
   };
+}
 
 
  export const fetchOrder = (id) => {
@@ -77,4 +78,3 @@ export const setOrder = (order) => {
         return state;
     }
   }
-

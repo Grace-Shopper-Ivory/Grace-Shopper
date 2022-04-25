@@ -1,3 +1,37 @@
+*{padding: 0; margin: 0; box-sizing: border-box;}
+body{height: 400px;}
+header {
+	background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRuroeBxpESdwdyCi1-hhCIJn4oE_GpTHEmA&usqp=CAU');
+	text-align: center;
+	width: 100%;
+	height: auto;
+	background-size: cover;
+	background-attachment: fixed;
+	position: relative;
+	overflow: hidden;
+	border-radius: 0 0 85% 85% / 30%;
+}
+header .overlay{
+	width: 100%;
+	height: 100%;
+	padding: 50px;
+	color: #FFF;
+	text-shadow: 1px 1px 1px #333;
+  background-image: linear-gradient( 135deg, #9f05ff69 10%, #fd5e086b 100%);
+	
+}
+
+h1 {
+	font-family: 'Dancing Script', cursive;
+	font-size: 80px;
+	margin-bottom: 30px;
+}
+
+h3, p {
+	font-family: 'Open Sans', sans-serif;
+	margin-bottom: 30px;
+}
+/* ///////////// */
 body {
   font-family: sans-serif;
 }
@@ -25,6 +59,7 @@ img {
   height: 300px;
   padding: 10px;
 }
+
 
 /* global */
 button {
@@ -165,4 +200,17 @@ button:hover {
 .order-summary{
   border-style: solid;
   border-width:2px;
+}
+
+.usericon {
+  width:100px;
+  height:100px;
+  justify-content: right;
+  object-fit:cover;
+  border-radius:50%;
+}
+
+.logo{
+  width: 100px;
+  height: 100px;
 }
