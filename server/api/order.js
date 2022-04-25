@@ -45,6 +45,8 @@ router.delete('/:productId/:userId', async (req, res, next) => {
 router.post('/:productId/:userId', async (req, res, next) => {
   try {
     try{
+      console.log("this is the try try  *****")
+
     const inCart = await Order.findOne({
         where: {
           userId: req.params.userId,
@@ -52,6 +54,7 @@ router.post('/:productId/:userId', async (req, res, next) => {
           inCart: true
         }
       })
+      console.log("the body!",req.body)
       res.json(await inCart.update(req.body));
     }catch(error){
       res.status(201).send(await Order.create(req.body));

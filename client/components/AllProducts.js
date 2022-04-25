@@ -23,8 +23,8 @@ function AllProducts(){
       const toCart = {
         userId: userInfo.id,
         productId: product.id,
-        quantity: product.quantity,
-        price: product.price
+        amount: product.quantity,
+        priceOfItem: parseFloat(product.price)
       }
       dispatch(addToCart(toCart))
     }else{
