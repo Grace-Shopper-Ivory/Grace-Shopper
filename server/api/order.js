@@ -61,20 +61,5 @@ router.post('/:productId/:userId', async (req, res, next) => {
     }
 });
 
-// router.put("/:userId/:productId", async (req, res, next) => {
-//   try {
-//     const cart = await Order.findOne({
-//       where: {
-//         userId: req.params.userId,
-//         productId: req.params.productId,
-//         inCart: true,
-//       },
-//     });
-//     res.json(await cart.update(req.body.amount));
-//   } catch (err) {
-//     next(err);
-//   }
-// });
-
 
 module.exports = router;

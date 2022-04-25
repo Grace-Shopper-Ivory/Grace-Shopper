@@ -5,16 +5,12 @@ let intialState = {}
 
 const SET_ORDER = 'SET_ORDER';
 
-<<<<<<< HEAD
-=======
-
 export const _deleteOrder = (order) => {
   return {
     type: DELETE_ORDER,
     order,
   }
 }
->>>>>>> b8ec59f9b8b90af7b57fe369707a136a11b45f77
 
 export const setOrder = (order) => {
     return {
