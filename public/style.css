@@ -157,3 +157,12 @@ button:hover {
   justify-content: space-between;
   align-items: flex-start;
 }
+
+.none{
+  display:none;
+}
+
+.order-summary{
+  border-style: solid;
+  border-width:2px;
+}
