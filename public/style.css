@@ -166,3 +166,8 @@ button:hover {
   border-style: solid;
   border-width:2px;
 }
+
+.logo{
+  width: 80px;
+  height: 80px;
+}

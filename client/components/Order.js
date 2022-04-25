@@ -13,6 +13,8 @@ export class Order extends React.Component {
     let products = order.products || [];
     //console.log("this.products ",products);
 
+    console.log(`ORDER:`, order);
+    console.log(`PRODUCTS:`, products);
     let preTaxTotal = 0;
     let taxPrice = preTaxTotal * 0.0875;
 
