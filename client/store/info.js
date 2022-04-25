@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 
-const SET_INFO = 'SET_INFO';
+const SET_INFO = "SET_INFO";
 
 let intialState = {};
 
@@ -15,10 +15,9 @@ export const fetchInfo = (id) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`/api/info/${id}`);
-      console.log(data);
       dispatch(setInfo(data));
     } catch (err) {
-      console.log('ERROR', err);
+      console.log("ERROR", err);
     }
   };
 };
