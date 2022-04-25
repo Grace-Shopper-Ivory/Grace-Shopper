@@ -11,7 +11,7 @@ export class UserPage extends React.Component {
   render() {
     console.log(this.props);
     let userInfo = this.props.userInfo.userInfo || {};
-    let productInfo = this.props.userInfo.ProductInfo || [];
+    let productInfo = this.props.userInfo.productInfo || [];
 
     return (
       <div className="user-page">

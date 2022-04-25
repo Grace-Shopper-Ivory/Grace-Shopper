@@ -35,6 +35,7 @@ router.delete('/:productId/:userId', async (req, res, next) => {
          inCart: true
        },
     });
+    cart.destroy();
     res.json(cart);
   } catch (err) {
     next(err);
