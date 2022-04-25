@@ -45,7 +45,6 @@ export default function products(state = {}, action) {
       return {
         order: action.order,
       };
-
     default:
       return state;
   }

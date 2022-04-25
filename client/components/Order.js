@@ -7,6 +7,7 @@ export class Order extends React.Component {
   componentDidMount() {
     this.props.fetchOrderThunk(this.props.id);
   }
+
   render() {
     let order = this.props.order.order || {};
     let products = order.products || [];
@@ -20,8 +21,12 @@ export class Order extends React.Component {
           <h2>{order.firstName}'s SHOPPING CART:</h2>
           {!products.length
             ? ""
-            : products.map((product) =>
-                product.order.inCart ? (
+            : products.map((product) => {
+                const quantity = product.order.amount;
+                const price = product.price;
+                const subtotal = quantity * price;
+
+                return product.order.inCart ? (
                   <div key={product.id}>
                     <Link to={`/products/${product.id}`} className="products">
                       <h2>{product.name}</h2>
@@ -30,8 +35,9 @@ export class Order extends React.Component {
                     <img src={product.img} />
                     <span>{<br />}</span>
 
-                    <a>Quantity: {product.order.amount} </a>
-                    <a>Price: $ {product.price}</a>
+                    <a>Quantity: {quantity} </a>
+                    <a>Price: $ {price} </a>
+                    <a>Subtotal: $ {subtotal.toFixed(2)} </a>
                     <span>{<br />}</span>
 
                     <button
@@ -40,7 +46,7 @@ export class Order extends React.Component {
                         this.props.handleCartChange(
                           order.id,
                           product.id,
-                          product.order.amount + 1
+                          quantity + 1
                         )
                       }
                     >
@@ -48,11 +54,12 @@ export class Order extends React.Component {
                     </button>
                     <button
                       type="button"
+                      disabled={quantity <= 1}
                       onClick={() =>
                         this.props.handleCartChange(
                           order.id,
                           product.id,
-                          product.order.amount - 1
+                          quantity - 1
                         )
                       }
                     >
@@ -67,8 +74,15 @@ export class Order extends React.Component {
                   </div>
                 ) : (
                   ""
-                )
-              )}
+                );
+              })}
+          <div className="order-summary">
+            <a>Total before tax: $ </a>
+            <span>{<br />}</span>
+            <a>Estimated tax: $</a>
+            <span>{<br />}</span>
+            <a>Order Total: $</a>
+          </div>
         </div>
       </div>
     );
