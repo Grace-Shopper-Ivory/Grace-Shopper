@@ -1,7 +1,9 @@
 import React, {useState,useEffect} from "react";
 import { connect,useDispatch,useSelector } from "react-redux";
 import product, { fetchProducts } from "../store/products";
+import { setGuestCart, addToGuestCart } from "../store";
 import { Link } from "react-router-dom";
+
 
 // export class AllProducts extends React.Component {
 //   componentDidMount() {
@@ -66,40 +68,31 @@ import { Link } from "react-router-dom";
 // export default connect(mapState, mapDispatch)(AllProducts);
 
 function AllProducts(){
-
   const dispatch = useDispatch()
+  let amount = {}
 
   const productsArr = useSelector((state=>state.products))
+  const guestCart = useSelector((state=>state.guestCart))
 
   useEffect(()=>{
     dispatch(fetchProducts())
   },[])
 
-  const handleAddToCart=(product)=>{
-    let cart = JSON.parse(localStorage.getItem("cart"))
-
-    if(!cart) cart = []
-
-    let duplicateCheck = false
-    for(let i=0;i<cart.length;i++){
-      if(cart[i]["productId"]===product.id){
-        cart[i]["ammount"]++
-        duplicateCheck = true
-      }
-    }
-
-    if(!duplicateCheck) cart.push({productId:product.id,ammount:1})
-
-    localStorage.setItem("cart",JSON.stringify(cart))
-
-    //for when we have cart routes figure out
+  const handleAddToCart= async (product)=>{
     if(localStorage.getItem("token")){
       console.log('USER LOGGED IN')
     }else{
-      console.log("GUEST")
+      if(amount[product.id]){
+        dispatch(addToGuestCart(product.id,amount[product.id]))
+      }else{
+        dispatch(addToGuestCart(product.id,1))
+      }
     }
   }
 
+  const changeAmount=(product,targetAmount)=>{
+    amount[product]=targetAmount
+  }
 
   return(
     <div id="all-products">
@@ -111,7 +104,8 @@ function AllProducts(){
                 </Link>
                 <div>
                   <p>{product.quantity>0 ? `in stock` : `out of stock`}</p>
-                  <button type="button" onClick={()=>handleAddToCart(product)}>add to cart</button> {/*create onClick once we have carts page*/}
+                  <input type="number" min="1" max={product.quantity} size="2" onChange={(event)=>{changeAmount(product.id,Number(event.target.value))}}></input>
+                  <button type="button" onClick={()=>handleAddToCart(product)}>add to cart</button>
                 </div>
               </div>
             ))}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { logout } from '../store';
+import { logout,setGuestCart } from '../store';
 import auth from '../store/auth';
 
 const Navbar = ({ handleClick, isLoggedIn, userInfo }) => (
@@ -45,6 +45,7 @@ const mapDispatch = (dispatch) => {
   return {
     handleClick() {
       dispatch(logout());
+      if(localStorage.getItem("cart")) dispatch(setGuestCart(JSON.parse(localStorage.getItem("cart")))) //sets the guest cart on logout
     },
   };
 };

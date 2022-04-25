@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {authenticate} from '../store'
+import {authenticate,setGuestCart} from '../store'
 
 /**
  * COMPONENT
@@ -63,6 +63,7 @@ const mapDispatch = dispatch => {
       const username = evt.target.username.value
       const password = evt.target.password.value
       dispatch(authenticate(username, password, formName))
+      dispatch(setGuestCart([]))//sets the guest cart to {}
     }
   }
 }
