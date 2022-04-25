@@ -10,12 +10,12 @@ export const setOrder = (order) => {
   };
 };
 
-export const updateOrder = (order) => {
-  return {
-    type: UPDATE_ORDER,
-    order,
-  };
-};
+// export const updateOrder = (order) => {
+//   return {
+//     type: UPDATE_ORDER,
+//     order,
+//   };
+// };
 
 export const fetchOrder = (id) => {
   return async (dispatch) => {
@@ -28,23 +28,16 @@ export const fetchOrder = (id) => {
   };
 };
 
-export const editOrder = (orderId, productId, quantity) => {
+export const editOrder = (orderId, productId, amount) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.put(
-        `/api/order/${orderId}/${productId}`,
-        quantity
-      );
-      dispatch(updateOrder(data));
+      await axios.put(`/api/order/${orderId}/${productId}`, { amount });
+      dispatch(fetchOrder(orderId));
     } catch (err) {
       console.log("ERROR", err);
     }
   };
 };
-
-// let intialState = {
-//   order: [],
-// };
 
 export default function products(state = {}, action) {
   switch (action.type) {
@@ -52,14 +45,7 @@ export default function products(state = {}, action) {
       return {
         order: action.order,
       };
-    case UPDATE_ORDER:
-      return {
-        order: state.order.products.map((product) => {
-          console.log(`ACTION ORDER`);
-          console.log(action.order);
-          return product.id === action.order.id ? action.order : product;
-        }),
-      };
+
     default:
       return state;
   }

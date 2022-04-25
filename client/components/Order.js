@@ -11,8 +11,6 @@ export class Order extends React.Component {
     let order = this.props.order.order || {};
     let products = order.products || [];
 
-    // console.log(`PROPS`);
-    // console.log(this.props);
     return (
       <div className="user-page">
         <h1>
@@ -39,13 +37,6 @@ export class Order extends React.Component {
                     <button
                       type="button"
                       onClick={() =>
-                        // console.log(
-                        //   `ORDER ID: ${order.id}`,
-                        //   `PRODUCT ID: ${product.id}`,
-                        //   `PRODUCT AMOUNT: ${product.order.amount + 1}`
-                        // )
-
-                        //grabs all variables correctly
                         this.props.handleCartChange(
                           order.id,
                           product.id,
