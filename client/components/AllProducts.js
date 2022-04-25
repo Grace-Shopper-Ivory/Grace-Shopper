@@ -50,7 +50,7 @@ function AllProducts(){
                 </Link>
                 <div>
                   <p>{product.quantity>0 ? `in stock` : `out of stock`}</p>
-                  <input type="number" min="1" max={product.quantity} size="2" onChange={(event)=>{changeAmount(product.id,Number(event.target.value))}}></input>
+                  <input defaultValue= '1' type="number" min="1" max={product.quantity} size="2" onChange={(event)=>{changeAmount(product.id,Number(event.target.value))}}></input>
                   <button type="button" onClick={()=>handleAddToCart(product)}>add to cart</button>
                 </div>
               </div>

@@ -26,7 +26,7 @@ export class Order extends React.Component {
             {!products.length
                 ? ''
                 : products.map((product) =>
-                    product.order.inCart ? (
+                    !product.order.inCart ? (
                     ''
                     ) : (
                     <div key={product.id}>

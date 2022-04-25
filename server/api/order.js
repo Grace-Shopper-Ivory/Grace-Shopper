@@ -51,6 +51,7 @@ router.post('/:productId/:userId', async (req, res, next) => {
         where: {
           userId: req.params.userId,
           productId: req.params.productId,
+          
           inCart: true
         }
       })
