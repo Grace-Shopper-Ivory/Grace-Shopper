@@ -1,5 +1,9 @@
-import React, {useEffect} from 'react'
+
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector} from 'react-redux'
+import { setGuestCart } from "./store";
+
+
 import Navbar from './components/Navbar'
 import Routes from './Routes'
 //import auth from './store/auth';

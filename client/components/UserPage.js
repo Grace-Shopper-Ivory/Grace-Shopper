@@ -4,12 +4,12 @@ import { fetchInfo } from '../store/info';
 import { deleteOrder } from '../store/order'
 import { Link } from 'react-router-dom';
 
+
 export class UserPage extends React.Component {
   componentDidMount() {
     this.props.fetchInfoThunk(this.props.match.params.id);
   }
   render() {
-    console.log(this.props);
     let userInfo = this.props.userInfo.userInfo || {};
     let productInfo = this.props.userInfo.productInfo || [];
 
@@ -21,10 +21,10 @@ export class UserPage extends React.Component {
         <div className="cart">
           <h2>Cart Info:</h2>
           {!productInfo.length
-            ? ''
+            ? ""
             : productInfo.map((product) =>
-                !product.order.inCart ? (
-                  ''
+                product.order.inCart ? (
+                  ""
                 ) : (
                   <div key={product.id}>
                     <Link to={`/products/${product.id}`} className="products">
@@ -39,10 +39,10 @@ export class UserPage extends React.Component {
         <div className="orders">
           <h2>Order Info:</h2>
           {!productInfo.length
-            ? ''
+            ? ""
             : productInfo.map((product) =>
-                product.order.inCart ? (
-                  ''
+                !product.order.inCart ? (
+                  ""
                 ) : (
                   <div key={product.id}>
                     <Link to={`/products/${product.id}`} className="products">

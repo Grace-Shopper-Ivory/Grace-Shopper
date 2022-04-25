@@ -1,7 +1,7 @@
-const router = require('express').Router();
+const router = require("express").Router();
 const {
   models: { Order, User, Product },
-} = require('../db');
+} = require("../db");
 /*
 refactor for shopping cart called orders:
 here we need:
@@ -11,7 +11,7 @@ delete to fully remove an unordered product from cart.
 put request to 'purchace' an item and change the boollean to true
 */
 // /api/orders
-router.get('/:id', async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
   try {
     const user = await User.findOne({
       where: {
@@ -42,6 +42,23 @@ router.delete('/:productId/:userId', async (req, res, next) => {
   }
 });
 
+router.put("/:userId/:productId", async (req, res, next) => {
+  try {
+    const cart = await Order.findOne({
+      where: {
+        userId: req.params.userId,
+        productId: req.params.productId,
+        inCart: true,
+      },
+    });
+
+    res.json(await cart.update(req.body));
+  } catch (err) {
+    next(err);
+  }
+});
+
+
 router.post('/:productId/:userId', async (req, res, next) => {
   try {
     try{
@@ -51,6 +68,7 @@ router.post('/:productId/:userId', async (req, res, next) => {
         where: {
           userId: req.params.userId,
           productId: req.params.productId,
+          
           inCart: true
         }
       })

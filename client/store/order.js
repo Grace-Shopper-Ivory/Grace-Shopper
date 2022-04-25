@@ -1,9 +1,12 @@
+
 import axios from 'axios';
 import { fetchInfo } from './info';
 
 let intialState = {}
 
 const SET_ORDER = 'SET_ORDER';
+const DELETE_ORDER = 'DELETE_ORDER';
+const UPDATE_ORDER = "UPDATE_ORDER";
 
 export const _deleteOrder = (order) => {
   return {
@@ -12,14 +15,15 @@ export const _deleteOrder = (order) => {
   }
 }
 
+
 export const setOrder = (order) => {
-    return {
-      type: SET_ORDER,
-      order,
-    };
+  return {
+    type: SET_ORDER,
+    order,
   };
 
-  export const fetchOrder = (id) => {
+
+ export const fetchOrder = (id) => {
     return async (dispatch) => {
       try {
         const { data } = await axios.get(`/api/order/${id}`);
@@ -41,6 +45,16 @@ export const setOrder = (order) => {
       }
     }
   }
+  export const editOrder = (orderId, productId, amount) => {
+  return async (dispatch) => {
+    try {
+      await axios.put(`/api/order/${orderId}/${productId}`, { amount });
+      dispatch(fetchOrder(orderId));
+    } catch (err) {
+      console.log("ERROR", err);
+    }
+  };
+};
 
   export const addToCart = (cart) => {
     return async (dispatch) => {
@@ -63,3 +77,4 @@ export const setOrder = (order) => {
         return state;
     }
   }
+
