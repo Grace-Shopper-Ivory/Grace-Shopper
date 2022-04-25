@@ -70,6 +70,7 @@ function AllProducts(){
   const dispatch = useDispatch()
 
   const productsArr = useSelector((state=>state.products))
+  const userInfo = useSelector((state=>state.auth))
 
   useEffect(()=>{
     dispatch(fetchProducts())

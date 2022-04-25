@@ -4,14 +4,7 @@ import { fetchInfo } from './info';
 let intialState = {}
 
 const SET_ORDER = 'SET_ORDER';
-const DELETE_ORDER = 'DELETE_ORDER';
 
-export const _deleteOrder = (order) => {
-  return {
-    type: DELETE_ORDER,
-    order,
-  }
-}
 
 export const setOrder = (order) => {
     return {
@@ -36,11 +29,18 @@ export const setOrder = (order) => {
       try {
         console.log(productId, userId)
         const {data: order } = await axios.delete(`/api/order/${productId}/${userId}`)
-        console.log(order)
-        // await order.destroy();
         dispatch(fetchInfo(userId));
-        // dispatch(_deleteOrder(order))
       } catch (err) {
+        console.log('ERROR', err);
+      }
+    }
+  }
+
+  export const addToCart = (cart) => {
+    return async (dispatch) => {
+      try {
+        await axios.post('api/order', cart)
+      } catch (error) {
         console.log('ERROR', err);
       }
     }
@@ -52,12 +52,6 @@ export const setOrder = (order) => {
       case SET_ORDER:
         return {
           order: action.order,
-        };
-      case DELETE_ORDER:
-        return {
-          productInfo: state.info.productInfo.filter((product) => {
-            product.order.OrderId !== action.order.OrderId
-          })
         };
       default:
         return state;
