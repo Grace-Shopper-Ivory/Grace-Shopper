@@ -3,8 +3,8 @@ const {
   models: { Order, User, Product },
 } = require('../db');
 /*
-refactor for shopping cart called orders: 
-here we need: 
+refactor for shopping cart called orders:
+here we need:
 get requests to display product info that has been added to the  to a user and not purchased. ***
 put requests to update quantityin cart.
 delete to fully remove an unordered product from cart.
@@ -25,20 +25,42 @@ router.get('/:id', async (req, res, next) => {
     next(err);
   }
 });
-router.get("/:userId/:productId", async (req, res, next) => {
+
+router.delete('/:productId/:userId', async (req, res, next) => {
   try {
-    const cart = await Order.findOne({
-      where: {
-        userId: req.params.userId,
-        productId: req.params.productId,
-        inCart: true,
-      },
+     const cart = await Order.findOne({
+       where: {
+         userId: req.params.userId,
+         productId: req.params.productId,
+         inCart: true
+       },
     });
+    cart.destroy();
     res.json(cart);
   } catch (err) {
     next(err);
   }
 });
+
+router.post('/:productId/:userId', async (req, res, next) => {
+  try {
+    try{
+    const inCart = await Order.findOne({
+        where: {
+          userId: req.params.userId,
+          productId: req.params.productId,
+          inCart: true
+        }
+      })
+      res.json(await inCart.update(req.body));
+    }catch(error){
+      res.status(201).send(await Order.create(req.body));
+    }
+   } catch (error) {
+      next(error);
+    }
+});
+
 // router.put("/:userId/:productId", async (req, res, next) => {
 //   try {
 //     const cart = await Order.findOne({
@@ -54,20 +76,5 @@ router.get("/:userId/:productId", async (req, res, next) => {
 //   }
 // });
 
-module.exports = router;
-// router.get('/:id', async (req, res, next) => {
-//   try {
-//     const user = await User.findByPk(req.params.id);
-//     // user.dataValues.orders = await Order.findAll({
-//     //   where: {
-//     //     userId: req.params.id,
-//     //     inCart: false,
-//     //   },
-//     // });
 
-//     user.dataValues.cartItems = await Order.findAll({
-//       where: {
-//         userId: req.params.id,
-//         inCart: true,
-//       },
-//     });
+module.exports = router;

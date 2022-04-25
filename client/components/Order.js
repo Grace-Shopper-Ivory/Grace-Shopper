@@ -12,9 +12,9 @@ export class Order extends React.Component {
 
     let order = this.props.order.order || {};
     let products = order.products || [];
-    console.log("this.products ",products);
+    //console.log("this.products ",products);
 
-    
+
 
     return (
         <div className="user-page">

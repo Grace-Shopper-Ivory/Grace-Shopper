@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchInfo } from '../store/info';
+import { deleteOrder } from '../store/order'
 import { Link } from 'react-router-dom';
 
 export class UserPage extends React.Component {
@@ -10,7 +11,7 @@ export class UserPage extends React.Component {
   render() {
     console.log(this.props);
     let userInfo = this.props.userInfo.userInfo || {};
-    let productInfo = this.props.userInfo.ProductInfo || [];
+    let productInfo = this.props.userInfo.productInfo || [];
 
     return (
       <div className="user-page">
@@ -22,7 +23,7 @@ export class UserPage extends React.Component {
           {!productInfo.length
             ? ''
             : productInfo.map((product) =>
-                product.order.inCart ? (
+                !product.order.inCart ? (
                   ''
                 ) : (
                   <div key={product.id}>
@@ -30,6 +31,7 @@ export class UserPage extends React.Component {
                       <h2>{product.name}</h2>
                     </Link>
                     <img src={product.img} />
+                    <button onClick={() => this.props.handleCartChange(product.id, userInfo.id)}>Delete</button>
                   </div>
                 )
               )}
@@ -39,7 +41,7 @@ export class UserPage extends React.Component {
           {!productInfo.length
             ? ''
             : productInfo.map((product) =>
-                !product.order.inCart ? (
+                product.order.inCart ? (
                   ''
                 ) : (
                   <div key={product.id}>
@@ -69,6 +71,7 @@ const mapState = (reduxState) => {
 
 const mapDispatch = (dispatch) => {
   return {
+    handleCartChange: (productId, userId) => dispatch(deleteOrder(productId, userId)),
     fetchInfoThunk: (id) => dispatch(fetchInfo(id)),
   };
 };

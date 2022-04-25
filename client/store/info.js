@@ -28,7 +28,7 @@ export default function products(state = intialState, action) {
     case SET_INFO:
       return {
         userInfo: action.info,
-        ProductInfo: action.info.products,
+        productInfo: action.info.products,
       };
     default:
       return state;
