@@ -21,7 +21,7 @@ const Order = db.define('order', {
     defaultValue: null,
   },
   priceOfItem: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.DECIMAL,
     allowNull: false,
   },
   inCart: {
