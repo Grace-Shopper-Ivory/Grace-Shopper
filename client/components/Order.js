@@ -10,25 +10,19 @@ export class Order extends React.Component {
   render() {
     //console.log(this.props);
 
-    // let userInfo = this.props.userInfo.userInfo;
-    let order = this.props.order || {};
-    //let products = order.products || [];
-    console.log("this.props",this.props);
-    // console.log('order',this.props.order);
-    // console.log('order order', this.props.order.order);
-    // console.log('order admin', this.props.order.cart.);
-
-
+    let order = this.props.order.order || {};
+    let products = order.products || [];
+    //console.log("this.products ",products);
 
 
 
     return (
-        <div className="user-page">hello
-        {/* <h1>
+        <div className="user-page">
+         <h1>
           Hello {order.firstName} {order.lastName}
         </h1>
-            <div className="cart">
-            <h2>Cart Info:</h2>
+            <div className="order">
+            <h2>{order.firstName}'s SHOPPING CART:</h2>
             {!products.length
                 ? ''
                 : products.map((product) =>
@@ -38,13 +32,21 @@ export class Order extends React.Component {
                     <div key={product.id}>
                         <Link to={`/products/${product.id}`} className="products">
                         <h2>{product.name}</h2>
-                        </Link>
                         <img src={product.img} />
+                        </Link>
+
+                        <a>{product.amount}</a>
+                        <a>price $ {product.price}</a>
+
+                        <button type="button" onClick={()=>handleAddToCart(product)}>increase</button> 
+                        <button type="button" onClick={()=>handleAddToCart(product)}>decrease</button> 
+                        <button type="button" onClick={()=>handleAddToCart(product)}>delete</button> 
+
                     </div>
                     )
                 )}
-            </div>*/}
-        </div>
+            </div>
+        </div> 
 
     );
   }

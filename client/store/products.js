@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const SET_PRODUCTS = 'SET_PRODUCTS';
 
+
 export const setProducts = (products) => {
   return {
     type: SET_PRODUCTS,
@@ -19,6 +20,17 @@ export const fetchProducts = () => {
     }
   };
 };
+
+
+export const addToCart = (cart) => {
+  return async (dispatch) => {
+    try {
+      await axios.post(`api/order/${cart.productId}/${cart.userId}`, cart)
+    } catch (error) {
+      console.log('ERROR', error);
+    }
+  }
+}
 
 export default function products(state = [], action) {
   console.log(action);
