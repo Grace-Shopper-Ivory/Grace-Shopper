@@ -12,13 +12,16 @@ export class Order extends React.Component {
     let order = this.props.order.order || {};
     let products = order.products || [];
 
+    let preTaxTotal = 0;
+    let taxPrice = preTaxTotal * 0.0875;
+
     return (
       <div className="user-page">
         <h1>
           Hello {order.firstName} {order.lastName}
         </h1>
         <div className="order">
-          <h2>{order.firstName}'s SHOPPING CART:</h2>
+          <h2>{order.firstName}'s Shopping Cart:</h2>
           {!products.length
             ? ""
             : products.map((product) => {
@@ -31,15 +34,12 @@ export class Order extends React.Component {
                     <Link to={`/products/${product.id}`} className="products">
                       <h2>{product.name}</h2>
                     </Link>
-
                     <img src={product.img} />
                     <span>{<br />}</span>
-
                     <a>Quantity: {quantity} </a>
                     <a>Price: $ {price} </a>
                     <a>Subtotal: $ {subtotal.toFixed(2)} </a>
                     <span>{<br />}</span>
-
                     <button
                       type="button"
                       onClick={() =>
@@ -71,17 +71,23 @@ export class Order extends React.Component {
                     >
                       Remove
                     </button>
+                    <div className="none">
+                      {(preTaxTotal += subtotal).toFixed(2)};
+                    </div>
                   </div>
                 ) : (
                   ""
                 );
               })}
+
           <div className="order-summary">
-            <a>Total before tax: $ </a>
+            <a>Total before tax: ${preTaxTotal.toFixed(2)}</a>
             <span>{<br />}</span>
-            <a>Estimated tax: $</a>
+            <a>Estimated tax: ${(preTaxTotal * 0.0875).toFixed(2)}</a>
             <span>{<br />}</span>
-            <a>Order Total: $</a>
+            <a>
+              Order Total: ${(preTaxTotal + preTaxTotal * 0.0875).toFixed(2)}
+            </a>
           </div>
         </div>
       </div>
