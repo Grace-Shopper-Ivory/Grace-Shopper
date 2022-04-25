@@ -12,6 +12,8 @@ export class Order extends React.Component {
     let order = this.props.order.order || {};
     let products = order.products || [];
 
+    console.log(`ORDER:`, order);
+    console.log(`PRODUCTS:`, products);
     let preTaxTotal = 0;
     let taxPrice = preTaxTotal * 0.0875;
 

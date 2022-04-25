@@ -1,12 +1,14 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { logout } from '../store';
-import auth from '../store/auth';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { logout } from "../store";
+import auth from "../store/auth";
 
 const Navbar = ({ handleClick, isLoggedIn, userInfo }) => (
   <div>
-    <h1>FS-App-Template</h1>
+    <h1>
+      <img src="https://i.ibb.co/rkVtJL6/image.png" className="logo" />
+    </h1>
     <nav>
       {isLoggedIn ? (
         <div>

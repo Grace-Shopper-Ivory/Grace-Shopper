@@ -10,13 +10,6 @@ export const setOrder = (order) => {
   };
 };
 
-// export const updateOrder = (order) => {
-//   return {
-//     type: UPDATE_ORDER,
-//     order,
-//   };
-// };
-
 export const fetchOrder = (id) => {
   return async (dispatch) => {
     try {
