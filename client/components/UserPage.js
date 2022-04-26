@@ -23,7 +23,7 @@ export class UserPage extends React.Component {
           {!productInfo.length
             ? ""
             : productInfo.map((product) =>
-                product.order.inCart ? (
+                !product.order.inCart ? (
                   ""
                 ) : (
                   <div key={product.id}>
@@ -41,7 +41,7 @@ export class UserPage extends React.Component {
           {!productInfo.length
             ? ""
             : productInfo.map((product) =>
-                !product.order.inCart ? (
+                product.order.inCart ? (
                   ""
                 ) : (
                   <div key={product.id}>
