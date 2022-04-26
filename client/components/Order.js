@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fetchOrder, editOrder, deleteOrder } from "../store/order";
+import { checkout } from "../store/order";
 import { Link } from "react-router-dom";
 import { deleteFromGuestCart,editGuestCart } from "../store";
 
@@ -8,9 +9,13 @@ export class Order extends React.Component {
   constructor(){
     super()
     this.state={
-      loggedIn:false
+      loggedIn:false,
+      confirmOrder: false
     }
     //this.changeAmount=this.changeAmount.bind(this)
+  }
+  componentDidUpdate() {
+    !this.props.confirmOrder;
   }
   componentDidMount() {
     if(localStorage.getItem("token")){
@@ -31,6 +36,7 @@ export class Order extends React.Component {
   render() {
     let order = this.props.order || {};
     let products = order.products || [];
+
     if(!this.state.loggedIn){
       order = {
         firstName: "Guest",
@@ -60,7 +66,7 @@ export class Order extends React.Component {
                 const inCart = this.state.loggedIn ? product.order.inCart : true
                 const productId = this.state.loggedIn ? product.id : product.productId
                 const orderId = this.state.loggedIn ? order.id : ""
-                
+
                 return inCart ? (
                   <div key={productId}>
                     <Link to={`/products/${product.id}`} className="products">
@@ -100,10 +106,8 @@ export class Order extends React.Component {
             </a>
           </div>
         </div>
-        <div className="payment">
-          <h2>Payment Info:</h2>
-          <h3>Card Information: {order.paymentInfo}</h3>
-          <button>Update Payment Info</button>
+        <div className="checkout">
+          <button onClick={this.props.confirmOrder ? 'Thank you for your order!' : () => this.props.checkout(order.id)}>Checkout</button>
         </div>
       </div>
     );
@@ -117,14 +121,15 @@ const mapState = (reduxState) => {
   };
 };
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, {history}) => {
   return {
     fetchOrderThunk: (id) => dispatch(fetchOrder(id)),
     handleCartChange: (orderId, productId, quantity) =>
       dispatch(editOrder(orderId, productId, quantity)),
     deleteFromGuestCart: (productId)=>dispatch(deleteFromGuestCart(productId)),
     editGuestCart: (productId,productAmount)=>dispatch(editGuestCart(productId,productAmount)),
-    handleRemoveFromCart: (productId, userId) => dispatch(deleteOrder(productId, userId))
+    handleRemoveFromCart: (productId, userId) => dispatch(deleteOrder(productId, userId)),
+    checkout: (userId) => dispatch(checkout(userId, history))
   };
 };
 
