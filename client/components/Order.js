@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { deleteFromGuestCart,editGuestCart } from "../store";
 
 export class Order extends React.Component {
-  constructor(props){
+  constructor(){
     super()
     this.state={
       loggedIn:false
