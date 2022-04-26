@@ -24,6 +24,7 @@ export const setOrder = (order) => {
 }
 
 
+
 export const fetchOrder = (id) => {
     return async (dispatch) => {
       try {
@@ -33,7 +34,6 @@ export const fetchOrder = (id) => {
         console.log('ERROR', err);
       }
     };
-
 
   export const deleteOrder = (productId, userId) => {
     return async (dispatch) => {
@@ -47,6 +47,7 @@ export const fetchOrder = (id) => {
       }
     }
   }
+
   export const editOrder = (orderId, productId, amount) => {
   return async (dispatch) => {
     try {
@@ -69,12 +70,10 @@ export const fetchOrder = (id) => {
   }
 
   export default function products(state = intialState, action) {
-    console.log(state)
     switch (action.type) {
       case SET_ORDER:
-        return {
-          order: action.order,
-        };
+        return action.order
+
       default:
         return state;
     }

@@ -1,6 +1,7 @@
 const SET_GUESTCART = 'SET_GUESTCART';
 const ADD_TO_GUESTCART = 'ADD_TO_GUESTCART'
 const DELETE_FROM_GUESTCART = 'DELETE_FROM_GUESTCART'
+const EDIT_GUESTCART = 'EDIT_GUESTCART'
 
 export const setGuestCart = (guestCart) => {
   return {
@@ -9,11 +10,10 @@ export const setGuestCart = (guestCart) => {
   };
 };
 
-export const addToGuestCart = (guestCartItemId,guestCartItemamount) => {
+export const addToGuestCart = (guestCartItem) => {
   return {
     type: ADD_TO_GUESTCART,
-    guestCartItemId,
-    guestCartItemamount
+    guestCartItem
   }
 }
 
@@ -21,6 +21,14 @@ export const deleteFromGuestCart = (guestCartItemId) => {
   return {
     type: DELETE_FROM_GUESTCART,
     guestCartItemId
+  }
+}
+
+export const editGuestCart = (guestCartItemId,guestCartItemAmount)=>{
+  return{
+    type: EDIT_GUESTCART,
+    guestCartItemId,
+    guestCartItemAmount,
   }
 }
 
@@ -33,13 +41,15 @@ export default function guestCart(state = [], action) {
     case ADD_TO_GUESTCART:
       let duplicateCheck = false
       guestCart = state.map((elem)=>{
-        if(elem.productId===action.guestCartItemId){
+        console.log(elem.productId,":",action.guestCartItem.productId)
+        if(elem.productId===action.guestCartItem.productId){
+          console.log("MATCH")
           duplicateCheck = true
-          return{...elem,amount: elem.amount+=action.guestCartItemamount}
+          return{...elem,amount: elem.amount+=action.guestCartItem.amount}
         }else{return elem}
       })
       if(!duplicateCheck){
-        guestCart.push({productId: action.guestCartItemId, amount: action.guestCartItemamount})
+        guestCart.push(action.guestCartItem)
       }
       localStorage.setItem("cart",JSON.stringify(guestCart))
       return guestCart
@@ -49,6 +59,15 @@ export default function guestCart(state = [], action) {
         if(elem.productId===action.guestCartItemId){
           return false
         }else{return true}
+      })
+      localStorage.setItem("cart",JSON.stringify(guestCart))
+      return guestCart
+
+    case EDIT_GUESTCART:
+      guestCart = state.map((elem)=>{
+        if(elem.productId===action.guestCartItemId){
+          return {...elem,amount:action.guestCartItemAmount}
+        }else{return elem}
       })
       localStorage.setItem("cart",JSON.stringify(guestCart))
       return guestCart
