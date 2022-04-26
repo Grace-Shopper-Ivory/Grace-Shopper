@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchOrder, editOrder, deleteOrder } from "../store/order";
+import { fetchOrder, editOrder, deleteOrder, setOrder } from "../store/order";
 import { checkout } from "../store/order";
 import { Link } from "react-router-dom";
 import { deleteFromGuestCart,editGuestCart } from "../store";
@@ -22,6 +22,9 @@ export class Order extends React.Component {
       this.props.fetchOrderThunk(this.props.id);
       this.setState({loggedIn:true})
     }
+  }
+  componentWillUnmount() {
+    this.props.resetOrder()
   }
 
   changeAmount(orderId,itemId,itemAmount){
@@ -45,8 +48,6 @@ export class Order extends React.Component {
       products = this.props.guestCart
     }
 
-    console.log(`ORDER:`, order);
-    console.log(`PRODUCTS:`, products);
     let preTaxTotal = 0;
 
     return (
@@ -81,9 +82,7 @@ export class Order extends React.Component {
                     <input defaultValue={quantity} type="number" min="1" max="100" size="2" onChange={(event)=>{this.changeAmount(orderId,productId,Number(event.target.value))}}></input>
                     <button
                       type="button"
-
-                      // deleteOrder not re-rendering page
-                      onClick={() => this.state.loggedIn ? this.props.handleRemoveFromCart(product.id, this.props.id) : this.props.deleteFromGuestCart(1)}
+                      onClick={() => this.state.loggedIn ? this.props.handleRemoveFromCart(product.id, this.props.id) : this.props.deleteFromGuestCart(productId)}
                     >
                       Remove
                     </button>
@@ -130,6 +129,7 @@ const mapDispatch = (dispatch, {history}) => {
     editGuestCart: (productId,productAmount)=>dispatch(editGuestCart(productId,productAmount)),
     handleRemoveFromCart: (productId, userId) => dispatch(deleteOrder(productId, userId)),
     checkout: (userId) => dispatch(checkout(userId, history))
+    resetOrder: () => dispatch(setOrder({}))
   };
 };
 
