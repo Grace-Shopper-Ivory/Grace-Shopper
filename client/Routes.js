@@ -9,6 +9,7 @@ import { me } from './store';
 import UserCreate from './components/UserCreate';
 import UserPage from './components/UserPage';
 import Order from './components/Order';
+import  Confirmation  from './components/Confirmation';
 
 /**
  * COMPONENT
@@ -29,9 +30,8 @@ class Routes extends Component {
             <Route path={`/userpage/:id`} component={UserPage} />
             <Route path={`/order`} component={Order}/>
             <Route path="/products/:productId" component={SingleProduct} />
-            <Route path="/" component={AllProducts} />
-
-          </Switch>
+            <Route path='/confirmation' component={Confirmation}/>
+            <Route path="/" component={AllProducts} />          </Switch>
         ) : (
           <Switch>
             <Route exact path="/products" component={AllProducts} />
@@ -39,6 +39,7 @@ class Routes extends Component {
             <Route path={`/order`} component={Order}/>
             <Route path="/signup" component={UserCreate} />
             <Route path="/products/:productId" component={SingleProduct} />
+            <Route path='/confirmation' component={Confirmation}/>
             <Route exact path="/" component={AllProducts} />
           </Switch>
         )}

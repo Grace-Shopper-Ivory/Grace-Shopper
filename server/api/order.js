@@ -58,6 +58,24 @@ router.put("/:userId/:productId", async (req, res, next) => {
   }
 });
 
+router.put("/:userId", async (req, res, next) => {
+  try {
+    const orders = await Order.findAll({
+      where: {
+        userId: req.params.userId
+      }
+    });
+    await Promise.all(
+      orders.map((order) => {
+        return order.update({inCart: false})
+      })
+    )
+    res.sendStatus(201)
+  } catch (error) {
+    next(error)
+  }
+})
+
 
 router.post('/:productId/:userId', async (req, res, next) => {
   try {
