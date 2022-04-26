@@ -2,8 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { fetchOrder, editOrder } from "../store/order";
 import { Link } from "react-router-dom";
-import guestCart from "../store/guestCart";
-import { deleteFromGuestCart } from "../store";
+import { deleteFromGuestCart,editGuestCart } from "../store";
 
 export class Order extends React.Component {
   constructor(){
@@ -11,11 +10,21 @@ export class Order extends React.Component {
     this.state={
       loggedIn:false
     }
+    //this.changeAmount=this.changeAmount.bind(this)
   }
   componentDidMount() {
     if(localStorage.getItem("token")){
       this.props.fetchOrderThunk(this.props.id);
       this.setState({loggedIn:true})
+    }
+  }
+
+  changeAmount(orderId,itemId,itemAmount){
+    console.log(orderId,":",itemId,":",itemAmount)
+    if(this.state.loggedIn){
+      this.props.handleCartChange(orderId,itemId,itemAmount)
+    }else{
+      this.props.editGuestCart(itemId,itemAmount)
     }
   }
 
@@ -32,7 +41,6 @@ export class Order extends React.Component {
 
 
     let preTaxTotal = 0;
-    let taxPrice = preTaxTotal * 0.0875;
 
     console.log("quantity",products)
     return (
@@ -51,6 +59,7 @@ export class Order extends React.Component {
                 const subtotal = quantity * price;
                 const inCart = this.state.loggedIn ? product.order.inCart : true
                 const productId = this.state.loggedIn ? product.id : product.productId
+                const orderId = this.state.loggedIn ? order.id : ""
                 
                 return inCart ? (
                   <div key={productId}>
@@ -63,7 +72,8 @@ export class Order extends React.Component {
                     <a>Price: $ {price} </a>
                     <a>Subtotal: $ {subtotal.toFixed(2)} </a>
                     <span>{<br />}</span>
-                    <button
+                    <input defaultValue={quantity} type="number" min="1" max="100" size="2" onChange={(event)=>{this.changeAmount(orderId,productId,Number(event.target.value))}}></input>
+                    {/* <button
                       type="button"
                       onClick={() =>{
                         if(localStorage.getItem("token")){
@@ -95,7 +105,7 @@ export class Order extends React.Component {
                       }}
                     >
                       Decrease
-                    </button>
+                    </button> */}
                     <button
                       type="button"
                       // handleAddToCart not a real
@@ -140,6 +150,7 @@ const mapDispatch = (dispatch) => {
     handleCartChange: (orderId, productId, quantity) =>
       dispatch(editOrder(orderId, productId, quantity)),
     deleteFromGuestCart: (productId)=>dispatch(deleteFromGuestCart(productId)),
+    editGuestCart: (productId,productAmount)=>dispatch(editGuestCart(productId,productAmount))
   };
 };
 

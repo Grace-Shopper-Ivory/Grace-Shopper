@@ -1,6 +1,7 @@
 const SET_GUESTCART = 'SET_GUESTCART';
 const ADD_TO_GUESTCART = 'ADD_TO_GUESTCART'
 const DELETE_FROM_GUESTCART = 'DELETE_FROM_GUESTCART'
+const EDIT_GUESTCART = 'EDIT_GUESTCART'
 
 export const setGuestCart = (guestCart) => {
   return {
@@ -20,6 +21,14 @@ export const deleteFromGuestCart = (guestCartItemId) => {
   return {
     type: DELETE_FROM_GUESTCART,
     guestCartItemId
+  }
+}
+
+export const editGuestCart = (guestCartItemId,guestCartItemAmount)=>{
+  return{
+    type: EDIT_GUESTCART,
+    guestCartItemId,
+    guestCartItemAmount,
   }
 }
 
@@ -50,6 +59,15 @@ export default function guestCart(state = [], action) {
         if(elem.productId===action.guestCartItemId){
           return false
         }else{return true}
+      })
+      localStorage.setItem("cart",JSON.stringify(guestCart))
+      return guestCart
+
+    case EDIT_GUESTCART:
+      guestCart = state.map((elem)=>{
+        if(elem.productId===action.guestCartItemId){
+          return {...elem,amount:action.guestCartItemAmount}
+        }else{return elem}
       })
       localStorage.setItem("cart",JSON.stringify(guestCart))
       return guestCart
