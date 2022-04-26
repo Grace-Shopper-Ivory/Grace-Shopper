@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchOrder, editOrder } from "../store/order";
+import { fetchOrder, editOrder, deleteOrder } from "../store/order";
 import { Link } from "react-router-dom";
 
 export class Order extends React.Component {
@@ -13,6 +13,8 @@ export class Order extends React.Component {
     let products = order.products || [];
     //console.log("this.products ",products);
 
+    console.log(`ORDER:`, order);
+    console.log(`PRODUCTS:`, products);
     let preTaxTotal = 0;
     let taxPrice = preTaxTotal * 0.0875;
 
@@ -69,7 +71,7 @@ export class Order extends React.Component {
                     </button>
                     <button
                       type="button"
-                      onClick={() => handleAddToCart(product)}
+                      onClick={() => this.props.handleRemoveFromCart(product.id, this.props.id)}
                     >
                       Remove
                     </button>
@@ -92,6 +94,11 @@ export class Order extends React.Component {
             </a>
           </div>
         </div>
+        <div className="payment">
+          <h2>Payment Info:</h2>
+          <h3>Card Information: {order.paymentInfo}</h3>
+          <button>Update Payment Info</button>
+        </div>
       </div>
     );
   }
@@ -108,6 +115,7 @@ const mapDispatch = (dispatch) => {
     fetchOrderThunk: (id) => dispatch(fetchOrder(id)),
     handleCartChange: (orderId, productId, quantity) =>
       dispatch(editOrder(orderId, productId, quantity)),
+    handleRemoveFromCart: (productId, userId) => dispatch(deleteOrder(productId, userId))
   };
 };
 

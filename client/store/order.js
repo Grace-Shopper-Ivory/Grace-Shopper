@@ -24,7 +24,7 @@ export const setOrder = (order) => {
 }
 
 
- export const fetchOrder = (id) => {
+export const fetchOrder = (id) => {
     return async (dispatch) => {
       try {
         const { data } = await axios.get(`/api/order/${id}`);
@@ -33,14 +33,15 @@ export const setOrder = (order) => {
         console.log('ERROR', err);
       }
     };
-  };
+
 
   export const deleteOrder = (productId, userId) => {
     return async (dispatch) => {
       try {
         console.log(productId, userId)
-        const {data: order } = await axios.delete(`/api/order/${productId}/${userId}`)
+        const { data: order } = await axios.delete(`/api/order/${productId}/${userId}`)
         dispatch(fetchInfo(userId));
+        dispatch(fetchOrder(userId));
       } catch (err) {
         console.log('ERROR', err);
       }

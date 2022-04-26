@@ -21,4 +21,14 @@ router.get("/:productId", async (req, res, next) => {
   }
 });
 
+router.put('/:productId', async (req, res, next) => {
+  console.log('this is the body', req.body)
+  try {
+    let product = await Product.findByPk(req.params.productId);
+    await product.update({quantity: product.quantity - req.body.amount})
+  } catch (error) {
+    next(error);
+  }
+})
+
 module.exports = router;
