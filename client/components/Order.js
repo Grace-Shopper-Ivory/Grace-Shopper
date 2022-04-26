@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchOrder, editOrder, deleteOrder } from "../store/order";
+import { fetchOrder, editOrder, deleteOrder, setOrder } from "../store/order";
 import { Link } from "react-router-dom";
 import { deleteFromGuestCart,editGuestCart } from "../store";
 
@@ -17,6 +17,9 @@ export class Order extends React.Component {
       this.props.fetchOrderThunk(this.props.id);
       this.setState({loggedIn:true})
     }
+  }
+  componentWillUnmount() {
+    this.props.resetOrder()
   }
 
   changeAmount(orderId,itemId,itemAmount){
@@ -39,8 +42,6 @@ export class Order extends React.Component {
       products = this.props.guestCart
     }
 
-    console.log(`ORDER:`, order);
-    console.log(`PRODUCTS:`, products);
     let preTaxTotal = 0;
 
     return (
@@ -122,7 +123,8 @@ const mapDispatch = (dispatch) => {
       dispatch(editOrder(orderId, productId, quantity)),
     deleteFromGuestCart: (productId)=>dispatch(deleteFromGuestCart(productId)),
     editGuestCart: (productId,productAmount)=>dispatch(editGuestCart(productId,productAmount)),
-    handleRemoveFromCart: (productId, userId) => dispatch(deleteOrder(productId, userId))
+    handleRemoveFromCart: (productId, userId) => dispatch(deleteOrder(productId, userId)),
+    resetOrder: () => dispatch(setOrder({}))
   };
 };
 
