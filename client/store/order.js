@@ -18,17 +18,16 @@ export const setOrder = (order) => {
     type: SET_ORDER,
     order,
   };
-};
 
 export const fetchOrder = (id) => {
-  return async (dispatch) => {
-    try {
-      const { data } = await axios.get(`/api/order/${id}`);
-      dispatch(setOrder(data));
-    } catch (err) {
-      console.log("ERROR", err);
+    return async (dispatch) => {
+      try {
+        const { data } = await axios.get(`/api/order/${id}`);
+        dispatch(setOrder(data));
+      } catch (err) {
+        console.log('ERROR', err);
+      }
     }
-  };
 };
 
 export const deleteOrder = (productId, userId) => {
@@ -63,14 +62,26 @@ export const addToCart = (cart) => {
     } catch (error) {
       console.log("ERROR", err);
     }
-  };
-};
-
-export default function products(state = intialState, action) {
-  switch (action.type) {
-    case SET_ORDER:
-      return action.order;
-    default:
-      return state;
   }
-}
+
+  export const checkout = (userId, history) => {
+    return async (dispatch) => {
+      try {
+        await axios.put(`/api/order/${userId}`);
+        dispatch(fetchOrder(userId))
+        history.push('/confirmation')
+      } catch (error) {
+        console.log('ERROR', err);
+      }
+    }
+  }
+
+  export default function products(state = intialState, action) {
+    switch (action.type) {
+      case SET_ORDER:
+        return action.order
+      default:
+        return state;
+    }
+  }
+
