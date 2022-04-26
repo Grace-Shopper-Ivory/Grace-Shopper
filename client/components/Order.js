@@ -20,7 +20,6 @@ export class Order extends React.Component {
   }
 
   changeAmount(orderId, itemId, itemAmount) {
-    console.log(orderId, ":", itemId, ":", itemAmount);
     if (this.state.loggedIn) {
       this.props.handleCartChange(orderId, itemId, itemAmount);
     } else {

@@ -5,7 +5,6 @@ let intialState = {};
 
 const SET_ORDER = "SET_ORDER";
 const DELETE_ORDER = "DELETE_ORDER";
-const UPDATE_ORDER = "UPDATE_ORDER";
 
 export const _deleteOrder = (order) => {
   return {
@@ -35,7 +34,6 @@ export const fetchOrder = (id) => {
 export const deleteOrder = (productId, userId) => {
   return async (dispatch) => {
     try {
-      console.log(productId, userId);
       const { data: order } = await axios.delete(
         `/api/order/${productId}/${userId}`
       );
@@ -72,7 +70,6 @@ export default function products(state = intialState, action) {
   switch (action.type) {
     case SET_ORDER:
       return action.order;
-
     default:
       return state;
   }
