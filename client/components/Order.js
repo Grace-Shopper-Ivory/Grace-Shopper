@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchOrder, editOrder } from "../store/order";
+import { fetchOrder, editOrder, deleteOrder } from "../store/order";
 import { Link } from "react-router-dom";
 import { deleteFromGuestCart,editGuestCart } from "../store";
 
 export class Order extends React.Component {
-  constructor(){
+  constructor(props){
     super()
     this.state={
       loggedIn:false
@@ -29,7 +29,7 @@ export class Order extends React.Component {
   }
 
   render() {
-    let order = this.props.order.order || {};
+    let order = this.props.order || {};
     let products = order.products || [];
     if(!this.state.loggedIn){
       order = {
@@ -39,10 +39,9 @@ export class Order extends React.Component {
       products = this.props.guestCart
     }
 
-
+    console.log(this.props)
     let preTaxTotal = 0;
 
-    console.log("quantity",products)
     return (
       <div className="user-page">
         <h1>
@@ -73,43 +72,10 @@ export class Order extends React.Component {
                     <a>Subtotal: $ {subtotal.toFixed(2)} </a>
                     <span>{<br />}</span>
                     <input defaultValue={quantity} type="number" min="1" max="100" size="2" onChange={(event)=>{this.changeAmount(orderId,productId,Number(event.target.value))}}></input>
-                    {/* <button
-                      type="button"
-                      onClick={() =>{
-                        if(localStorage.getItem("token")){
-                          this.props.handleCartChange(
-                            order.id,
-                            product.id,
-                            quantity + 1
-                          )
-                        }else{
-                          console.log("GUESTCART")
-                        }
-                      }}
-                    >
-                      Increase
-                    </button>
                     <button
                       type="button"
-                      disabled={quantity <= 1}
-                      onClick={() => {
-                        if(localStorage.getItem("token")){
-                          this.props.handleCartChange(
-                            order.id,
-                            product.id,
-                            quantity - 1
-                          )
-                        }else{
-                          console.log("GUESTCART")
-                        }
-                      }}
-                    >
-                      Decrease
-                    </button> */}
-                    <button
-                      type="button"
-                      // handleAddToCart not a real
-                      onClick={() => this.state.loggedIn ? handleAddToCart(product) : this.props.deleteFromGuestCart(1)}
+                      // deleteOrder not re-rendering page
+                      onClick={() => this.state.loggedIn ? this.props.deleteOrder(productId,this.props.id) : this.props.deleteFromGuestCart(1)}
                     >
                       Remove
                     </button>
@@ -149,6 +115,7 @@ const mapDispatch = (dispatch) => {
     fetchOrderThunk: (id) => dispatch(fetchOrder(id)),
     handleCartChange: (orderId, productId, quantity) =>
       dispatch(editOrder(orderId, productId, quantity)),
+    deleteOrder: (productId,userId)=>dispatch(deleteOrder(productId,userId)),
     deleteFromGuestCart: (productId)=>dispatch(deleteFromGuestCart(productId)),
     editGuestCart: (productId,productAmount)=>dispatch(editGuestCart(productId,productAmount))
   };

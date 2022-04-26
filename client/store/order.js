@@ -35,17 +35,29 @@ export const setOrder = (order) => {
     };
   };
 
+  // export const deleteOrder = (productId, userId) => {
+  //   return async (dispatch) => {
+  //     try {
+  //       console.log(productId, userId)
+  //       const {data: order } = await axios.delete(`/api/order/${productId}/${userId}`)
+  //       dispatch(fetchInfo(userId));
+  //     } catch (err) {
+  //       console.log('ERROR', err);
+  //     }
+  //   }
+  // }
+
   export const deleteOrder = (productId, userId) => {
     return async (dispatch) => {
       try {
-        console.log(productId, userId)
-        const {data: order } = await axios.delete(`/api/order/${productId}/${userId}`)
-        dispatch(fetchInfo(userId));
+        const {data} = await axios.delete(`/api/order/${productId}/${userId}`)
+        dispatch(_deleteOrder(data));
       } catch (err) {
         console.log('ERROR', err);
       }
     }
   }
+
   export const editOrder = (orderId, productId, amount) => {
   return async (dispatch) => {
     try {
@@ -70,9 +82,19 @@ export const setOrder = (order) => {
   export default function products(state = intialState, action) {
     switch (action.type) {
       case SET_ORDER:
-        return {
-          order: action.order,
-        };
+        return action.order
+
+      case DELETE_ORDER:
+        console.log(state)
+        let newProduct = state.products.filter((elem)=>{
+          if(elem.id==action.order.Orderid && elem.order.inCart===true){
+            return false
+          }else{
+            return true
+          }
+        })
+        return {...state,products:newProduct}
+
       default:
         return state;
     }
