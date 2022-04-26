@@ -1,14 +1,15 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { Login, Signup } from './components/AuthForm';
-import Home from './components/Home';
-import AllProducts from './components/AllProducts';
-import SingleProduct from './components/SingleProduct';
-import { me } from './store';
-import UserCreate from './components/UserCreate';
-import UserPage from './components/UserPage';
-import Order from './components/Order';
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import { Login, Signup } from "./components/AuthForm";
+import Home from "./components/Home";
+import AllProducts from "./components/AllProducts";
+import SingleProduct from "./components/SingleProduct";
+import { me } from "./store";
+import UserCreate from "./components/UserCreate";
+import UserPage from "./components/UserPage";
+import Order from "./components/Order";
+import Admin from "./components/Admin";
 
 /**
  * COMPONENT
@@ -24,19 +25,18 @@ class Routes extends Component {
       <div>
         {isLoggedIn ? (
           <Switch>
-
             <Route exact path="/products" component={AllProducts} />
             <Route path={`/userpage/:id`} component={UserPage} />
-            <Route path={`/order`} component={Order}/>
+            <Route path={`/order`} component={Order} />
             <Route path="/products/:productId" component={SingleProduct} />
             <Route path="/" component={AllProducts} />
-
+            <Route path={`/adminpage/:id`} component={Admin} />
           </Switch>
         ) : (
           <Switch>
             <Route exact path="/products" component={AllProducts} />
             <Route path="/login" component={Login} />
-            <Route path={`/order`} component={Order}/>
+            <Route path={`/order`} component={Order} />
             <Route path="/signup" component={UserCreate} />
             <Route path="/products/:productId" component={SingleProduct} />
             <Route exact path="/" component={AllProducts} />

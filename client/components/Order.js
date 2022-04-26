@@ -2,45 +2,43 @@ import React from "react";
 import { connect } from "react-redux";
 import { fetchOrder, editOrder, deleteOrder } from "../store/order";
 import { Link } from "react-router-dom";
-import { deleteFromGuestCart,editGuestCart } from "../store";
+import { deleteFromGuestCart, editGuestCart } from "../store";
 
 export class Order extends React.Component {
-  constructor(){
-    super()
-    this.state={
-      loggedIn:false
-    }
+  constructor() {
+    super();
+    this.state = {
+      loggedIn: false,
+    };
     //this.changeAmount=this.changeAmount.bind(this)
   }
   componentDidMount() {
-    if(localStorage.getItem("token")){
+    if (localStorage.getItem("token")) {
       this.props.fetchOrderThunk(this.props.id);
-      this.setState({loggedIn:true})
+      this.setState({ loggedIn: true });
     }
   }
 
-  changeAmount(orderId,itemId,itemAmount){
-    console.log(orderId,":",itemId,":",itemAmount)
-    if(this.state.loggedIn){
-      this.props.handleCartChange(orderId,itemId,itemAmount)
-    }else{
-      this.props.editGuestCart(itemId,itemAmount)
+  changeAmount(orderId, itemId, itemAmount) {
+    console.log(orderId, ":", itemId, ":", itemAmount);
+    if (this.state.loggedIn) {
+      this.props.handleCartChange(orderId, itemId, itemAmount);
+    } else {
+      this.props.editGuestCart(itemId, itemAmount);
     }
   }
 
   render() {
     let order = this.props.order || {};
     let products = order.products || [];
-    if(!this.state.loggedIn){
-      order = {
+    if (!this.state.loggedIn) {
+      (order = {
         firstName: "Guest",
-        lastName: ""
-      },
-      products = this.props.guestCart
+        lastName: "",
+      }),
+        (products = this.props.guestCart);
     }
 
-    console.log(`ORDER:`, order);
-    console.log(`PRODUCTS:`, products);
     let preTaxTotal = 0;
 
     return (
@@ -54,13 +52,19 @@ export class Order extends React.Component {
           {!products.length
             ? ""
             : products.map((product) => {
-                const quantity = this.state.loggedIn ? product.order.amount : product.amount
+                const quantity = this.state.loggedIn
+                  ? product.order.amount
+                  : product.amount;
                 const price = product.price;
                 const subtotal = quantity * price;
-                const inCart = this.state.loggedIn ? product.order.inCart : true
-                const productId = this.state.loggedIn ? product.id : product.productId
-                const orderId = this.state.loggedIn ? order.id : ""
-                
+                const inCart = this.state.loggedIn
+                  ? product.order.inCart
+                  : true;
+                const productId = this.state.loggedIn
+                  ? product.id
+                  : product.productId;
+                const orderId = this.state.loggedIn ? order.id : "";
+
                 return inCart ? (
                   <div key={productId}>
                     <Link to={`/products/${product.id}`} className="products">
@@ -72,12 +76,31 @@ export class Order extends React.Component {
                     <a>Price: $ {price} </a>
                     <a>Subtotal: $ {subtotal.toFixed(2)} </a>
                     <span>{<br />}</span>
-                    <input defaultValue={quantity} type="number" min="1" max="100" size="2" onChange={(event)=>{this.changeAmount(orderId,productId,Number(event.target.value))}}></input>
+                    <input
+                      defaultValue={quantity}
+                      type="number"
+                      min="1"
+                      max="100"
+                      size="2"
+                      onChange={(event) => {
+                        this.changeAmount(
+                          orderId,
+                          productId,
+                          Number(event.target.value)
+                        );
+                      }}
+                    ></input>
                     <button
                       type="button"
-
                       // deleteOrder not re-rendering page
-                      onClick={() => this.state.loggedIn ? this.props.handleRemoveFromCart(product.id, this.props.id) : this.props.deleteFromGuestCart(1)}
+                      onClick={() =>
+                        this.state.loggedIn
+                          ? this.props.handleRemoveFromCart(
+                              product.id,
+                              this.props.id
+                            )
+                          : this.props.deleteFromGuestCart(1)
+                      }
                     >
                       Remove
                     </button>
@@ -122,9 +145,12 @@ const mapDispatch = (dispatch) => {
     fetchOrderThunk: (id) => dispatch(fetchOrder(id)),
     handleCartChange: (orderId, productId, quantity) =>
       dispatch(editOrder(orderId, productId, quantity)),
-    deleteFromGuestCart: (productId)=>dispatch(deleteFromGuestCart(productId)),
-    editGuestCart: (productId,productAmount)=>dispatch(editGuestCart(productId,productAmount)),
-    handleRemoveFromCart: (productId, userId) => dispatch(deleteOrder(productId, userId))
+    deleteFromGuestCart: (productId) =>
+      dispatch(deleteFromGuestCart(productId)),
+    editGuestCart: (productId, productAmount) =>
+      dispatch(editGuestCart(productId, productAmount)),
+    handleRemoveFromCart: (productId, userId) =>
+      dispatch(deleteOrder(productId, userId)),
   };
 };
 
