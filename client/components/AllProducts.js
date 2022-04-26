@@ -100,10 +100,18 @@ function AllProducts(){
       dispatch(addToCart(toCart))
     }else{
       if(amount[product.id]){
-        dispatch(addToGuestCart(product.id,amount[product.id]))
+        quantity = amount[product.id]
       }else{
-        dispatch(addToGuestCart(product.id,1))
+        quantity = 1
       }
+      const toCart = {
+        productId: product.id,
+        name: product.name,
+        amount: quantity,
+        img: product.img,
+        price: product.price
+      }
+      dispatch(addToGuestCart(toCart))
     }
   }
 

@@ -2,21 +2,39 @@ import React from "react";
 import { connect } from "react-redux";
 import { fetchOrder, editOrder } from "../store/order";
 import { Link } from "react-router-dom";
+import guestCart from "../store/guestCart";
+import { deleteFromGuestCart } from "../store";
 
 export class Order extends React.Component {
+  constructor(){
+    super()
+    this.state={
+      loggedIn:false
+    }
+  }
   componentDidMount() {
-    this.props.fetchOrderThunk(this.props.id);
+    if(localStorage.getItem("token")){
+      this.props.fetchOrderThunk(this.props.id);
+      this.setState({loggedIn:true})
+    }
   }
 
   render() {
     let order = this.props.order.order || {};
     let products = order.products || [];
-    //console.log("this.products ",products);
+    if(!this.state.loggedIn){
+      order = {
+        firstName: "Guest",
+        lastName: ""
+      },
+      products = this.props.guestCart
+    }
+
 
     let preTaxTotal = 0;
     let taxPrice = preTaxTotal * 0.0875;
 
-
+    console.log("quantity",products)
     return (
       <div className="user-page">
         <h1>
@@ -28,11 +46,14 @@ export class Order extends React.Component {
           {!products.length
             ? ""
             : products.map((product) => {
-                const quantity = product.order.amount;
+                const quantity = this.state.loggedIn ? product.order.amount : product.amount
                 const price = product.price;
                 const subtotal = quantity * price;
-                return product.order.inCart ? (
-                  <div key={product.id}>
+                const inCart = this.state.loggedIn ? product.order.inCart : true
+                const productId = this.state.loggedIn ? product.id : product.productId
+                
+                return inCart ? (
+                  <div key={productId}>
                     <Link to={`/products/${product.id}`} className="products">
                       <h2>{product.name}</h2>
                     </Link>
@@ -44,32 +65,41 @@ export class Order extends React.Component {
                     <span>{<br />}</span>
                     <button
                       type="button"
-                      onClick={() =>
-                        this.props.handleCartChange(
-                          order.id,
-                          product.id,
-                          quantity + 1
-                        )
-                      }
+                      onClick={() =>{
+                        if(localStorage.getItem("token")){
+                          this.props.handleCartChange(
+                            order.id,
+                            product.id,
+                            quantity + 1
+                          )
+                        }else{
+                          console.log("GUESTCART")
+                        }
+                      }}
                     >
                       Increase
                     </button>
                     <button
                       type="button"
                       disabled={quantity <= 1}
-                      onClick={() =>
-                        this.props.handleCartChange(
-                          order.id,
-                          product.id,
-                          quantity - 1
-                        )
-                      }
+                      onClick={() => {
+                        if(localStorage.getItem("token")){
+                          this.props.handleCartChange(
+                            order.id,
+                            product.id,
+                            quantity - 1
+                          )
+                        }else{
+                          console.log("GUESTCART")
+                        }
+                      }}
                     >
                       Decrease
                     </button>
                     <button
                       type="button"
-                      onClick={() => handleAddToCart(product)}
+                      // handleAddToCart not a real
+                      onClick={() => this.state.loggedIn ? handleAddToCart(product) : this.props.deleteFromGuestCart(1)}
                     >
                       Remove
                     </button>
@@ -100,6 +130,7 @@ const mapState = (reduxState) => {
   return {
     order: reduxState.order,
     id: reduxState.auth.id,
+    guestCart: reduxState.guestCart,
   };
 };
 
@@ -108,6 +139,7 @@ const mapDispatch = (dispatch) => {
     fetchOrderThunk: (id) => dispatch(fetchOrder(id)),
     handleCartChange: (orderId, productId, quantity) =>
       dispatch(editOrder(orderId, productId, quantity)),
+    deleteFromGuestCart: (productId)=>dispatch(deleteFromGuestCart(productId)),
   };
 };
 
