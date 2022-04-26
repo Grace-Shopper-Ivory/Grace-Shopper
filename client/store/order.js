@@ -1,27 +1,23 @@
+import axios from "axios";
+import { fetchInfo } from "./info";
 
-import axios from 'axios';
-import { fetchInfo } from './info';
+let intialState = {};
 
-let intialState = {}
-
-const SET_ORDER = 'SET_ORDER';
-const DELETE_ORDER = 'DELETE_ORDER';
-const UPDATE_ORDER = "UPDATE_ORDER";
+const SET_ORDER = "SET_ORDER";
+const DELETE_ORDER = "DELETE_ORDER";
 
 export const _deleteOrder = (order) => {
   return {
     type: DELETE_ORDER,
     order,
-  }
-}
-
+  };
+};
 
 export const setOrder = (order) => {
   return {
     type: SET_ORDER,
     order,
   };
-}
 
 export const fetchOrder = (id) => {
     return async (dispatch) => {
@@ -34,20 +30,21 @@ export const fetchOrder = (id) => {
     }
 };
 
-  export const deleteOrder = (productId, userId) => {
-    return async (dispatch) => {
-      try {
-        console.log(productId, userId)
-        const { data: order } = await axios.delete(`/api/order/${productId}/${userId}`)
-        dispatch(fetchInfo(userId));
-        dispatch(fetchOrder(userId));
-      } catch (err) {
-        console.log('ERROR', err);
-      }
+export const deleteOrder = (productId, userId) => {
+  return async (dispatch) => {
+    try {
+      const { data: order } = await axios.delete(
+        `/api/order/${productId}/${userId}`
+      );
+      dispatch(fetchInfo(userId));
+      dispatch(fetchOrder(userId));
+    } catch (err) {
+      console.log("ERROR", err);
     }
-  }
+  };
+};
 
-  export const editOrder = (orderId, productId, amount) => {
+export const editOrder = (orderId, productId, amount) => {
   return async (dispatch) => {
     try {
       await axios.put(`/api/order/${orderId}/${productId}`, { amount });
@@ -58,13 +55,12 @@ export const fetchOrder = (id) => {
   };
 };
 
-  export const addToCart = (cart) => {
-    return async (dispatch) => {
-      try {
-        await axios.post('api/order', cart)
-      } catch (error) {
-        console.log('ERROR', err);
-      }
+export const addToCart = (cart) => {
+  return async (dispatch) => {
+    try {
+      await axios.post("api/order", cart);
+    } catch (error) {
+      console.log("ERROR", err);
     }
   }
 
@@ -88,3 +84,4 @@ export const fetchOrder = (id) => {
         return state;
     }
   }
+

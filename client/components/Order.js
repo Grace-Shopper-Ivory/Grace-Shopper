@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { fetchOrder, editOrder, deleteOrder, setOrder } from "../store/order";
 import { checkout } from "../store/order";
 import { Link } from "react-router-dom";
-import { deleteFromGuestCart,editGuestCart } from "../store";
+import { deleteFromGuestCart, editGuestCart } from "../store";
 
 export class Order extends React.Component {
   constructor(){
@@ -18,21 +18,20 @@ export class Order extends React.Component {
     !this.props.confirmOrder;
   }
   componentDidMount() {
-    if(localStorage.getItem("token")){
+    if (localStorage.getItem("token")) {
       this.props.fetchOrderThunk(this.props.id);
-      this.setState({loggedIn:true})
+      this.setState({ loggedIn: true });
     }
   }
   componentWillUnmount() {
     this.props.resetOrder()
   }
 
-  changeAmount(orderId,itemId,itemAmount){
-    console.log(orderId,":",itemId,":",itemAmount)
-    if(this.state.loggedIn){
-      this.props.handleCartChange(orderId,itemId,itemAmount)
-    }else{
-      this.props.editGuestCart(itemId,itemAmount)
+  changeAmount(orderId, itemId, itemAmount) {
+    if (this.state.loggedIn) {
+      this.props.handleCartChange(orderId, itemId, itemAmount);
+    } else {
+      this.props.editGuestCart(itemId, itemAmount);
     }
   }
 
@@ -43,9 +42,9 @@ export class Order extends React.Component {
     if(!this.state.loggedIn){
       order = {
         firstName: "Guest",
-        lastName: ""
-      },
-      products = this.props.guestCart
+        lastName: "",
+      }),
+        (products = this.props.guestCart);
     }
 
     let preTaxTotal = 0;
@@ -61,7 +60,9 @@ export class Order extends React.Component {
           {!products.length
             ? ""
             : products.map((product) => {
-                const quantity = this.state.loggedIn ? product.order.amount : product.amount
+                const quantity = this.state.loggedIn
+                  ? product.order.amount
+                  : product.amount;
                 const price = product.price;
                 const subtotal = quantity * price;
                 const inCart = this.state.loggedIn ? product.order.inCart : true
@@ -79,7 +80,20 @@ export class Order extends React.Component {
                     <a>Price: $ {price} </a>
                     <a>Subtotal: $ {subtotal.toFixed(2)} </a>
                     <span>{<br />}</span>
-                    <input defaultValue={quantity} type="number" min="1" max="100" size="2" onChange={(event)=>{this.changeAmount(orderId,productId,Number(event.target.value))}}></input>
+                    <input
+                      defaultValue={quantity}
+                      type="number"
+                      min="1"
+                      max="100"
+                      size="2"
+                      onChange={(event) => {
+                        this.changeAmount(
+                          orderId,
+                          productId,
+                          Number(event.target.value)
+                        );
+                      }}
+                    ></input>
                     <button
                       type="button"
                       onClick={() => this.state.loggedIn ? this.props.handleRemoveFromCart(product.id, this.props.id) : this.props.deleteFromGuestCart(productId)}

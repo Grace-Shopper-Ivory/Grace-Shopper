@@ -9,7 +9,8 @@ import { me } from './store';
 import UserCreate from './components/UserCreate';
 import UserPage from './components/UserPage';
 import Order from './components/Order';
-import  Confirmation  from './components/Confirmation';
+import Confirmation  from './components/Confirmation';
+import Admin from "./components/Admin";
 
 /**
  * COMPONENT
@@ -25,18 +26,19 @@ class Routes extends Component {
       <div>
         {isLoggedIn ? (
           <Switch>
-
             <Route exact path="/products" component={AllProducts} />
             <Route path={`/userpage/:id`} component={UserPage} />
-            <Route path={`/order`} component={Order}/>
+            <Route path={`/order`} component={Order} />
             <Route path="/products/:productId" component={SingleProduct} />
+            <Route path="/adminpage/:id" component={Admin} />
             <Route path='/confirmation' component={Confirmation}/>
-            <Route path="/" component={AllProducts} />          </Switch>
+            <Route path="/" component={AllProducts} />         
+          </Switch>
         ) : (
           <Switch>
             <Route exact path="/products" component={AllProducts} />
             <Route path="/login" component={Login} />
-            <Route path={`/order`} component={Order}/>
+            <Route path={`/order`} component={Order} />
             <Route path="/signup" component={UserCreate} />
             <Route path="/products/:productId" component={SingleProduct} />
             <Route path='/confirmation' component={Confirmation}/>
