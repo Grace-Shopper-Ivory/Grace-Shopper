@@ -75,9 +75,7 @@ export class Order extends React.Component {
                     <input defaultValue={quantity} type="number" min="1" max="100" size="2" onChange={(event)=>{this.changeAmount(orderId,productId,Number(event.target.value))}}></input>
                     <button
                       type="button"
-
-                      // deleteOrder not re-rendering page
-                      onClick={() => this.state.loggedIn ? this.props.handleRemoveFromCart(product.id, this.props.id) : this.props.deleteFromGuestCart(1)}
+                      onClick={() => this.state.loggedIn ? this.props.handleRemoveFromCart(product.id, this.props.id) : this.props.deleteFromGuestCart(productId)}
                     >
                       Remove
                     </button>

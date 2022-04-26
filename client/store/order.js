@@ -34,6 +34,7 @@ export const fetchOrder = (id) => {
         console.log('ERROR', err);
       }
     };
+}
 
   export const deleteOrder = (productId, userId) => {
     return async (dispatch) => {
