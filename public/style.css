@@ -1,3 +1,55 @@
+*{padding: 0; margin: 0; box-sizing: border-box;}
+body{height: 400px;}
+header {
+	background: url('https://i.pinimg.com/originals/e0/98/bd/e098bd5eb2c67b95621275e7adc87b12.jpg');
+	text-align: center;
+  color: #058c6b;
+	width: 100%;
+	height: auto;
+	background-size: cover;
+	background-attachment: fixed;
+	position: relative;
+	overflow: hidden;
+	border-radius: 0 0 85% 85% / 30%;
+}
+header .overlay{
+	width: 100%;
+	height: 100%;
+	padding: 50px;
+	color: #FFF;
+	text-shadow: 1px 1px 1px #333;
+  background-image: linear-gradient( 135deg, #9f05ff69 10%, #fd5e086b 100%);
+	
+}
+
+h1 {
+	font-family: 'Dancing Script', cursive;
+	font-size: 80px;
+	margin-bottom: 30px;
+	text-shadow: 3px 3px 3px black;
+
+}
+
+h3 {
+  color: #4fc0a4;
+	font-size: 35px;
+  text-align: left;
+	font-family: 'Open Sans', cursive;
+	margin-bottom: 60px;
+  margin-left: 30px;
+	text-shadow: 2px 2px 2px black;
+
+}
+p {
+  color: #4fc0a4;
+	font-size: 35px;
+  text-align: right;
+	font-family: 'Open Sans', cursive;
+	margin-bottom: 40px;
+	margin-right: 160px;
+	text-shadow: 2px 2px 2px black;
+}
+/* ///////////// 
 body {
   font-family: sans-serif;
 }
@@ -14,6 +66,7 @@ nav a {
   display: inline-block;
   margin: 1em;
 }
+*/
 
 form div {
   margin: 1em;
@@ -25,6 +78,7 @@ img {
   height: 300px;
   padding: 10px;
 }
+
 
 /* global */
 button {
@@ -167,7 +221,16 @@ button:hover {
   border-width:2px;
 }
 
+.usericon {
+  width:150px;
+  height:150px;
+  justify-content: right;
+  object-fit:cover;
+  border-radius:50%;
+}
+
 .logo{
-  width: 80px;
-  height: 80px;
+  justify-content: left;
+  width: 150px;
+  height: 150px;
 }
