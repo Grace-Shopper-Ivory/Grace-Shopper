@@ -43,7 +43,7 @@ export class Order extends React.Component {
       order = {
         firstName: "Guest",
         lastName: "",
-      }),
+      }
         (products = this.props.guestCart);
     }
 
@@ -142,7 +142,7 @@ const mapDispatch = (dispatch, {history}) => {
     deleteFromGuestCart: (productId)=>dispatch(deleteFromGuestCart(productId)),
     editGuestCart: (productId,productAmount)=>dispatch(editGuestCart(productId,productAmount)),
     handleRemoveFromCart: (productId, userId) => dispatch(deleteOrder(productId, userId)),
-    checkout: (userId) => dispatch(checkout(userId, history))
+    checkout: (userId) => dispatch(checkout(userId, history)),
     resetOrder: () => dispatch(setOrder({}))
   };
 };

@@ -64,6 +64,7 @@ export const addToCart = (cart) => {
       console.log("ERROR", err);
     }
   }
+}
 
   export const checkout = (userId, history) => {
     return async (dispatch) => {
