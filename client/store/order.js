@@ -18,6 +18,7 @@ export const setOrder = (order) => {
     type: SET_ORDER,
     order,
   };
+}
 
 export const fetchOrder = (id) => {
     return async (dispatch) => {
