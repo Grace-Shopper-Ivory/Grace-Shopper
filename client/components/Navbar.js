@@ -4,13 +4,6 @@ import { Link } from 'react-router-dom';
 import { logout,setGuestCart } from '../store';
 import auth from '../store/auth';
 
-// const link = styled(Link)`
-//   color: Blue;
-//   text-decoration: none;
-//   margin: 1rem;
-//   position: relative;
-// `;
-
 const Navbar = ({ handleClick, isLoggedIn, userInfo }) => (
   <div>
     {isLoggedIn ? (
@@ -24,6 +17,9 @@ const Navbar = ({ handleClick, isLoggedIn, userInfo }) => (
           </Link>
         </div>
         <div className='bar'>
+        {userInfo.admin ? (
+        <Link to={`/adminpage/${userInfo.id}`}><p>Admin Page</p></Link> 
+        ):''}
             <Link to="/"><p>home</p></Link>
             <Link to={`/userpage/${userInfo.id}`}><p>userpage</p></Link>
             <Link to={`/order`}><p>shopping cart</p></Link>
@@ -34,6 +30,7 @@ const Navbar = ({ handleClick, isLoggedIn, userInfo }) => (
       <div className='nav'>
         <div className='top'>
           {/* The navbar will show these links before you log in */}
+
           <img src="https://i.ibb.co/rkVtJL6/image.png" className="logo"/>
           <h1>The Market for Bread <br/>Stapled to Trees <br/> welcome guest</h1>
           <img src="https://i.ibb.co/rkVtJL6/image.png" className="logo"/>
@@ -63,7 +60,8 @@ const mapDispatch = (dispatch) => {
   return {
     handleClick() {
       dispatch(logout());
-      if(localStorage.getItem("cart")) dispatch(setGuestCart(JSON.parse(localStorage.getItem("cart")))) //sets the guest cart on logout
+      if (localStorage.getItem("cart"))
+        dispatch(setGuestCart(JSON.parse(localStorage.getItem("cart")))); //sets the guest cart on logout
     },
   };
 };

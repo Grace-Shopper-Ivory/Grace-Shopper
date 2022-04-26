@@ -10,7 +10,7 @@ put requests to update quantityin cart.
 delete to fully remove an unordered product from cart.
 put request to 'purchace' an item and change the boollean to true
 */
-// /api/orders
+// /api/order
 router.get("/:id", async (req, res, next) => {
   try {
     const user = await User.findOne({
@@ -26,14 +26,23 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.delete('/:productId/:userId', async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
-     const cart = await Order.findOne({
-       where: {
-         userId: req.params.userId,
-         productId: req.params.productId,
-         inCart: true
-       },
+    let orders = await Order.findAll();
+    res.json(orders);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.delete("/:productId/:userId", async (req, res, next) => {
+  try {
+    const cart = await Order.findOne({
+      where: {
+        userId: req.params.userId,
+        productId: req.params.productId,
+        inCart: true,
+      },
     });
     cart.destroy();
     res.json(cart);
@@ -59,27 +68,47 @@ router.put("/:userId/:productId", async (req, res, next) => {
 });
 
 
+router.put("/:userId", async (req, res, next) => {
+  try {
+    const orders = await Order.findAll({
+      where: {
+        userId: req.params.userId
+      }
+    });
+    await Promise.all(
+      orders.map((order) => {
+        return order.update({inCart: false})
+      })
+    )
+    res.sendStatus(201)
+  } catch (error) {
+    next(error)
+  }
+})
+
+
 router.post('/:productId/:userId', async (req, res, next) => {
   try {
-    try{
-      console.log("this is the try try  *****")
+    try {
+      console.log("this is the try try  *****");
 
-    const inCart = await Order.findOne({
+      const inCart = await Order.findOne({
         where: {
           userId: req.params.userId,
           productId: req.params.productId,
-          inCart: true
-        }
-      })
-      console.log("the body!",req.body)
-      res.json(await inCart.update({amount: inCart.amount + req.body.amount}));
-    }catch(error){
+          inCart: true,
+        },
+      });
+      console.log("the body!", req.body);
+      res.json(
+        await inCart.update({ amount: inCart.amount + req.body.amount })
+      );
+    } catch (error) {
       res.status(201).send(await Order.create(req.body));
     }
-   } catch (error) {
-      next(error);
-    }
+  } catch (error) {
+    next(error);
+  }
 });
-
 
 module.exports = router;
