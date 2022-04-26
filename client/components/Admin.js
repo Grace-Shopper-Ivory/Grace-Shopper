@@ -20,6 +20,7 @@ export class Admin extends React.Component {
     let user = this.props.user.userInfo || {};
     let allUser = this.props.users || [];
     let allProducts = this.props.products || [];
+    let allOrders = this.props.orders || [];
 
     return (
       <div className="admin-page">
@@ -61,7 +62,15 @@ export class Admin extends React.Component {
         </div>
         <div className="order-list">
           <h2> All Orders</h2>
-          <div></div>
+          <div>
+            <div>
+              {allOrders.map((order) => (
+                <div key={order.Orderid}>
+                  <h2> Order ID: {order.Orderid}</h2>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -73,7 +82,7 @@ const mapState = (reduxState) => {
     user: reduxState.info,
     users: reduxState.users,
     products: reduxState.products,
-    orders: reduxState.orders,
+    orders: reduxState.allOrders,
   };
 };
 
