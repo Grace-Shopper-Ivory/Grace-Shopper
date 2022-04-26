@@ -39,7 +39,8 @@ export class Order extends React.Component {
       products = this.props.guestCart
     }
 
-    console.log(this.props)
+    console.log(`ORDER:`, order);
+    console.log(`PRODUCTS:`, products);
     let preTaxTotal = 0;
 
     return (
@@ -74,8 +75,9 @@ export class Order extends React.Component {
                     <input defaultValue={quantity} type="number" min="1" max="100" size="2" onChange={(event)=>{this.changeAmount(orderId,productId,Number(event.target.value))}}></input>
                     <button
                       type="button"
+
                       // deleteOrder not re-rendering page
-                      onClick={() => this.state.loggedIn ? this.props.deleteOrder(productId,this.props.id) : this.props.deleteFromGuestCart(1)}
+                      onClick={() => this.state.loggedIn ? this.props.handleRemoveFromCart(product.id, this.props.id) : this.props.deleteFromGuestCart(1)}
                     >
                       Remove
                     </button>
@@ -98,6 +100,11 @@ export class Order extends React.Component {
             </a>
           </div>
         </div>
+        <div className="payment">
+          <h2>Payment Info:</h2>
+          <h3>Card Information: {order.paymentInfo}</h3>
+          <button>Update Payment Info</button>
+        </div>
       </div>
     );
   }
@@ -115,9 +122,9 @@ const mapDispatch = (dispatch) => {
     fetchOrderThunk: (id) => dispatch(fetchOrder(id)),
     handleCartChange: (orderId, productId, quantity) =>
       dispatch(editOrder(orderId, productId, quantity)),
-    deleteOrder: (productId,userId)=>dispatch(deleteOrder(productId,userId)),
     deleteFromGuestCart: (productId)=>dispatch(deleteFromGuestCart(productId)),
-    editGuestCart: (productId,productAmount)=>dispatch(editGuestCart(productId,productAmount))
+    editGuestCart: (productId,productAmount)=>dispatch(editGuestCart(productId,productAmount)),
+    handleRemoveFromCart: (productId, userId) => dispatch(deleteOrder(productId, userId))
   };
 };
 

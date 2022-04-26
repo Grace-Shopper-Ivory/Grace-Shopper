@@ -27,6 +27,7 @@ export const addToCart = (cart) => {
     try {
       console.log("this is the addto cart", cart)
       await axios.post(`api/order/${cart.productId}/${cart.userId}`, cart)
+      await axios.put(`api/products/${cart.productId}`, cart)
     } catch (error) {
       console.log('ERROR', error);
     }
