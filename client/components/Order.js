@@ -68,7 +68,7 @@ export class Order extends React.Component {
       order = {
         firstName: "Guest",
         lastName: "",
-      },
+      }
         (products = this.props.guestCart);
     }
 
