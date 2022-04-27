@@ -63,8 +63,8 @@ function AllProducts() {
                 <h2>{product.name}</h2>
                 <img src={product.img} />
               </Link>
-              <div>
-                <p>{product.quantity > 0 ? `in stock` : `out of stock`}</p>
+              {product.quantity>0 ? <div>
+                <p>in stock</p>
 
                 <input
                   defaultValue="1"
@@ -79,7 +79,7 @@ function AllProducts() {
                 <button type="button" onClick={() => handleAddToCart(product)}>
                   add to cart
                 </button>
-              </div>
+              </div> : <div><p>out of stock</p></div>}
             </div>
           ))}
     </div>
