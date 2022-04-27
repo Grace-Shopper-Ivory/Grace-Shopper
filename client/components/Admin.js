@@ -49,7 +49,7 @@ export class Admin extends React.Component {
         </div>
         <div className="product-list">
           <h2>All Products</h2>
-          <div>
+          <div className="allProds">
             {allProducts.map((product) => (
               <div key={product.id}>
                 <Link to={`/products/${product.id}`}>
@@ -62,14 +62,12 @@ export class Admin extends React.Component {
         </div>
         <div className="order-list">
           <h2> All Orders</h2>
-          <div>
-            <div>
-              {allOrders.map((order) => (
-                <div key={order.Orderid}>
-                  <h2> Order ID: {order.Orderid}</h2>
-                </div>
-              ))}
-            </div>
+          <div className="allOrders">
+            {allOrders.map((order) => (
+              <div key={order.Orderid}>
+                <h2> Order ID: {order.Orderid}</h2>
+              </div>
+            ))}
           </div>
         </div>
       </div>
