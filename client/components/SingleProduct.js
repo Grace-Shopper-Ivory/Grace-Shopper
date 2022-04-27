@@ -66,13 +66,14 @@ export class SingleProduct extends React.Component {
           {singleProduct.description}
         </p>
         <img src={singleProduct.img} />
-        <a>
-        <p>{singleProduct.quantity>0 ? `in stock` : `out of stock`}: {singleProduct.quantity}</p>
+
+        <p>{this.props.singleProduct.quantity>0 ? `in stock` : `out of stock`}</p>
+        {this.props.singleProduct.quantity>0 ? <a>
         <input type="number" min="1" max={singleProduct.quantity} size="2" onChange={(event)=>{this.changeAmount(Number(event.target.value))}}></input>
         <p>{Number(this.state.price).toFixed(2)}</p>
-        <button type="button" onClick={()=>this.handleAddToCart(singleProduct)}>add to 
-        cart</button>
-        </a>
+        <button type="button" onClick={()=>this.handleAddToCart(singleProduct)}>add to cart</button>
+        </a> : <a><p>check back later</p></a>}
+
       </div>
     );
   }
