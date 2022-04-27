@@ -29,12 +29,9 @@ function UserCreate(){
                     }
                 }
                 else if(!user[key] && key !== "img"){
-                    console.log(key)
                     trigger = false
                 }
-                console.log(trigger)
             }
-            console.log(addUser)
             if (trigger){
                 dispatch(signup({ ...user }))
             }else{
@@ -45,7 +42,6 @@ function UserCreate(){
         }else{
             alert("passwords do not match")
             setUser({...user,password:"",confirmPassword:""})
-            console.log("password mismatch")
         }
     }
     
