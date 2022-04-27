@@ -18,6 +18,7 @@ export const setOrder = (order) => {
     type: SET_ORDER,
     order,
   };
+}
 
 export const fetchOrder = (id) => {
     return async (dispatch) => {
@@ -63,6 +64,7 @@ export const addToCart = (cart) => {
       console.log("ERROR", err);
     }
   }
+}
 
   export const checkout = (userId, history) => {
     return async (dispatch) => {

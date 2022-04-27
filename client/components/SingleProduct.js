@@ -42,19 +42,22 @@ export class SingleProduct extends React.Component {
     const singleProduct = this.props.singleProduct;
     return (
       <div className="singleProduct">
-        <Link to="/products"> Back To All Products</Link>
+        {/* <Link to="/products"> Back To All Products</Link> */}
+        <span>{<br />}</span>
         <h2>{singleProduct.name}</h2>
-        <h3> $ {singleProduct.price}</h3>
         <p>
           <b>About this item: </b>
           <span>{<br />}</span>
           {singleProduct.description}
         </p>
         <img src={singleProduct.img} />
-        <p>{this.props.singleProduct.quantity>0 ? `in stock` : `out of stock`}</p>
+        <a>
+        <p>{singleProduct.quantity>0 ? `in stock` : `out of stock`}: {singleProduct.quantity}</p>
         <input type="number" min="1" max={singleProduct.quantity} size="2" onChange={(event)=>{this.changeAmount(Number(event.target.value))}}></input>
         <p>{Number(this.state.price).toFixed(2)}</p>
-        <button type="button" onClick={()=>this.handleAddToCart(singleProduct)}>add to cart</button>
+        <button type="button" onClick={()=>this.handleAddToCart(singleProduct)}>add to 
+        cart</button>
+        </a>
       </div>
     );
   }
