@@ -111,4 +111,17 @@ router.post('/:productId/:userId', async (req, res, next) => {
   }
 });
 
+router.post('/guest', async (req,res,next)=>{
+  try{
+    let guestOrders = req.body
+    res.status(201).send(
+      guestOrders.map((order) => {
+      return Order.create(order)
+    }))
+  }
+  catch(err){
+    next(err)
+  }
+})
+
 module.exports = router;

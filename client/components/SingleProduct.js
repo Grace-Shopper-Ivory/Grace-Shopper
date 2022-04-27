@@ -31,10 +31,23 @@ export class SingleProduct extends React.Component {
   }
 
   handleAddToCart= async (product)=>{
+    let quantity
     if(localStorage.getItem("token")){
       console.log('USER LOGGED IN')
     }else{
-        this.props.addToGuestCart(product.id,this.state.amount)
+        if (this.state.amount) {
+          quantity = this.state.amount;
+        } else {
+          quantity = 1;
+        }
+        const toCart = {
+          productId: product.id,
+          name: product.name,
+          amount: quantity,
+          img: product.img,
+          price: product.price,
+        };
+        this.props.addToGuestCart(toCart);
     }
   }
 
