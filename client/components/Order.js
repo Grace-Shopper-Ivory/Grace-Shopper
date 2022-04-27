@@ -37,7 +37,6 @@ export class Order extends React.Component {
 
   handleCheckout(){
     if(this.state.loggedIn){
-      console.log(this.props.order)
       if(Object.keys(this.props.order).length !==0){
         this.props.checkout(this.props.order.id)
       }else{
@@ -69,7 +68,7 @@ export class Order extends React.Component {
         firstName: "Guest",
         lastName: "",
       }
-        (products = this.props.guestCart);
+      products = this.props.guestCart;
     }
 
     let preTaxTotal = 0;
@@ -168,7 +167,7 @@ const mapDispatch = (dispatch, {history}) => {
     handleRemoveFromCart: (productId, userId) => dispatch(deleteOrder(productId, userId)),
     checkout: (userId) => dispatch(checkout(userId, history)),
     resetOrder: () => dispatch(setOrder({})),
-    guestCheckout: (guestCart) => {dispatch(guestCheckout(guestCart))}
+    guestCheckout: (guestCart) => {dispatch(guestCheckout(guestCart,history))}
   };
 };
 
