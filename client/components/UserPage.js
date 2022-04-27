@@ -1,18 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { fetchInfo } from '../store/info';
 import { deleteOrder } from '../store/order'
-import { Link } from 'react-router-dom';
-
 
 export class UserPage extends React.Component {
+
   componentDidMount() {
     this.props.fetchInfoThunk(this.props.match.params.id);
   }
+
   render() {
+
     let userInfo = this.props.userInfo.userInfo || {};
     let productInfo = this.props.userInfo.productInfo || [];
-    //console.log(productInfo)
 
     return (
       <div className="user-page">

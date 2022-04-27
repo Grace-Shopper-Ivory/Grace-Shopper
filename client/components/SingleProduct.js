@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { fetchSingleProduct } from "../store/singleProduct";
 import {addToGuestCart} from "../store";
-import { Link } from "react-router-dom";
 
 export class SingleProduct extends React.Component {
   constructor(){
@@ -12,6 +12,7 @@ export class SingleProduct extends React.Component {
       price:1
     }
   }
+
   componentDidMount() {
     try {
       this.props.fetchSingleProductThunk(this.props.match.params.productId);
@@ -19,6 +20,7 @@ export class SingleProduct extends React.Component {
       console.log(err);
     }
   }
+
   componentDidUpdate(prevProps){
     if(prevProps.singleProduct.id !== this.props.singleProduct.id){
       this.setState({price:this.props.singleProduct.price})

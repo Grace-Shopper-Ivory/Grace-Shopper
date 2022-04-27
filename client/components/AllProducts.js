@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts, addToCart } from "../store/products";
 import {addToGuestCart } from "../store";
-import { Link } from "react-router-dom";
 
 function AllProducts() {
   const dispatch = useDispatch();
@@ -11,7 +11,6 @@ function AllProducts() {
 
   const productsArr = useSelector((state) => state.products);
   const guestCart = useSelector((state) => state.guestCart);
-
   const userInfo = useSelector((state) => state.auth);
 
   useEffect(() => {

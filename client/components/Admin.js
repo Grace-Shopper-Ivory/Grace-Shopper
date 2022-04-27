@@ -1,10 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchInfo } from "../store/info";
 import { fetchAllUsers } from "../store/admin";
 import { fetchProducts } from "../store/products";
 import { fetchAllOrders } from "../store/allOrders";
-import { Link } from "react-router-dom";
 
 export class Admin extends React.Component {
   componentDidMount() {
@@ -15,8 +15,6 @@ export class Admin extends React.Component {
   }
 
   render() {
-    //console.log(this.props);
-
     let user = this.props.user.userInfo || {};
     let allUser = this.props.users || [];
     let allProducts = this.props.products || [];

@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout,setGuestCart } from '../store';
-import auth from '../store/auth';
 
 const Navbar = ({ handleClick, isLoggedIn, userInfo }) => (
   <div>
@@ -11,26 +10,25 @@ const Navbar = ({ handleClick, isLoggedIn, userInfo }) => (
         <div className='top'>
           {/* The navbar will show these links after you log in */}
           <img src="https://i.ibb.co/rkVtJL6/image.png" className="logo"/>
-          <h1>The Market for Bread <br/>Stapled to Trees</h1>         
+          <h1>The Market for Bread <br/>Stapled to Trees</h1>
           <Link to={`/userpage/${userInfo.id}`}>
             <img src={userInfo.imageUrl} className="usericon"/>
           </Link>
         </div>
         <div className='bar'>
         {userInfo.admin ? (
-        <Link to={`/adminpage/${userInfo.id}`}><p>Admin Page</p></Link> 
+        <Link to={`/adminpage/${userInfo.id}`}><p>Admin Page</p></Link>
         ):''}
-            <Link to="/"><p>home</p></Link>
-            <Link to={`/userpage/${userInfo.id}`}><p>userpage</p></Link>
-            <Link to={`/order`}><p>shopping cart</p></Link>
-            <Link to="/" href="#" onClick={handleClick}><b>logout</b></Link>
+            <Link to="/"><p>Home</p></Link>
+            <Link to={`/userpage/${userInfo.id}`}><p>User Page</p></Link>
+            <Link to={`/order`}><p>Shopping Cart</p></Link>
+            <Link to="/" href="#" onClick={handleClick}><b>Logout</b></Link>
         </div>
       </div>
     ) : (
       <div className='nav'>
         <div className='top'>
           {/* The navbar will show these links before you log in */}
-
           <img src="https://i.ibb.co/rkVtJL6/image.png" className="logo"/>
           <h1>The Market for Bread <br/>Stapled to Trees <br/> welcome guest</h1>
           <img src="https://i.ibb.co/rkVtJL6/image.png" className="logo"/>
