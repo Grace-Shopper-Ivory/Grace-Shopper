@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const SET_GUESTCART = 'SET_GUESTCART';
 const ADD_TO_GUESTCART = 'ADD_TO_GUESTCART'
 const DELETE_FROM_GUESTCART = 'DELETE_FROM_GUESTCART'
@@ -32,6 +34,19 @@ export const editGuestCart = (guestCartItemId,guestCartItemAmount)=>{
   }
 }
 
+export const guestCheckout  = (guestCart,history) => {
+  return async (dispatch) => {
+    try{
+        await axios.post("api/order/guest",guestCart)
+        localStorage.setItem("cart",[])
+        dispatch(setGuestCart([]))
+        history.push('/confirmation')
+    } catch(err) {
+      console.log("ERROR",err)
+    }
+  }
+}
+
 export default function guestCart(state = [], action) {
   let guestCart
   switch (action.type) {
@@ -41,9 +56,7 @@ export default function guestCart(state = [], action) {
     case ADD_TO_GUESTCART:
       let duplicateCheck = false
       guestCart = state.map((elem)=>{
-        console.log(elem.productId,":",action.guestCartItem.productId)
         if(elem.productId===action.guestCartItem.productId){
-          console.log("MATCH")
           duplicateCheck = true
           return{...elem,amount: elem.amount+=action.guestCartItem.amount}
         }else{return elem}
@@ -71,6 +84,7 @@ export default function guestCart(state = [], action) {
       })
       localStorage.setItem("cart",JSON.stringify(guestCart))
       return guestCart
+      
 
     default:
       return state;

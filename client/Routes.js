@@ -5,7 +5,8 @@ import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 import AllProducts from './components/AllProducts';
 import SingleProduct from './components/SingleProduct';
-import { me } from './store';
+import { me, setGuestCart } from './store';
+import { fetchOrder } from './store/order';
 import UserCreate from './components/UserCreate';
 import UserPage from './components/UserPage';
 import Order from './components/Order';
@@ -15,9 +16,17 @@ import Admin from "./components/Admin";
 /**
  * COMPONENT
  */
-class Routes extends Component {
+ class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
+    if(localStorage.getItem("cart") && !localStorage.getItem("token")){
+      this.props.setGuestCart(JSON.parse(localStorage.getItem("cart")))
+    }
+  }
+  componentDidUpdate(prevProps){
+    if(prevProps.user.id !== this.props.user.id && localStorage.getItem("token")){
+      this.props.fetchOrderThunk(this.props.user.id);
+    }
   }
 
   render() {
@@ -64,9 +73,9 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    loadInitialData() {
-      dispatch(me());
-    },
+    loadInitialData() {dispatch(me());},
+    fetchOrderThunk: (id) => dispatch(fetchOrder(id)),
+    setGuestCart: (guestCart) => {dispatch(setGuestCart(guestCart))}
   };
 };
 

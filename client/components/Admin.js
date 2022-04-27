@@ -15,7 +15,7 @@ export class Admin extends React.Component {
   }
 
   render() {
-    console.log(this.props);
+    //console.log(this.props);
 
     let user = this.props.user.userInfo || {};
     let allUser = this.props.users || [];
