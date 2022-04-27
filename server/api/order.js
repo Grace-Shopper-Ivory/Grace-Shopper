@@ -2,14 +2,7 @@ const router = require("express").Router();
 const {
   models: { Order, User, Product },
 } = require("../db");
-/*
-refactor for shopping cart called orders:
-here we need:
-get requests to display product info that has been added to the  to a user and not purchased. ***
-put requests to update quantityin cart.
-delete to fully remove an unordered product from cart.
-put request to 'purchace' an item and change the boollean to true
-*/
+
 // /api/order
 router.get("/:id", async (req, res, next) => {
   try {
@@ -90,8 +83,6 @@ router.put("/:userId", async (req, res, next) => {
 router.post('/:productId/:userId', async (req, res, next) => {
   try {
     try {
-      console.log("this is the try try  *****");
-
       const inCart = await Order.findOne({
         where: {
           userId: req.params.userId,

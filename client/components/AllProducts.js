@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts, addToCart } from "../store/products";
 import {addToGuestCart } from "../store";
-import { Link } from "react-router-dom";
 
 function AllProducts() {
   const dispatch = useDispatch();
@@ -11,7 +11,6 @@ function AllProducts() {
 
   const productsArr = useSelector((state) => state.products);
   const guestCart = useSelector((state) => state.guestCart);
-
   const userInfo = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -63,18 +62,20 @@ function AllProducts() {
                 <h2>{product.name}</h2>
                 <img src={product.img} />
               </Link>
+              
               {product.quantity>0 ? <div>
                 <p>in stock</p>
 
+
                 <input
-                  defaultValue="1"
-                  type="number"
-                  min="1"
-                  max={product.quantity}
-                  size="2"
-                  onChange={(event) => {
-                    changeAmount(product.id, Number(event.target.value));
-                  }}
+                    defaultValue="1"
+                    type="number"
+                    min="1"
+                    max={product.quantity}
+                    size="2"
+                    onChange={(event) => {
+                      changeAmount(product.id, Number(event.target.value));
+                    }}
                 ></input>
                 <button type="button" onClick={() => handleAddToCart(product)}>
                   add to cart

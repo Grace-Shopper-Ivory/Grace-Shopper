@@ -1,8 +1,7 @@
-import React from "react";
-import { connect } from "react-redux";
-import { fetchOrder, editOrder, deleteOrder, setOrder } from "../store/order";
-import { checkout } from "../store/order";
+import React from "react"
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { fetchOrder, editOrder, deleteOrder, setOrder, checkout } from "../store/order";
 import { deleteFromGuestCart, editGuestCart, guestCheckout } from "../store";
 
 export class Order extends React.Component {
@@ -12,17 +11,19 @@ export class Order extends React.Component {
       loggedIn:false,
       confirmOrder: false
     }
-    //this.changeAmount=this.changeAmount.bind(this)
   }
+
   componentDidUpdate() {
     !this.props.confirmOrder;
   }
+
   componentDidMount() {
     if (localStorage.getItem("token")) {
       this.props.fetchOrderThunk(this.props.id);
       this.setState({ loggedIn: true });
     }
   }
+
   componentWillUnmount() {
     this.props.resetOrder()
   }
@@ -67,9 +68,15 @@ export class Order extends React.Component {
       order = {
         firstName: "Guest",
         lastName: "",
-      }
-      products = this.props.guestCart;
+<<<<<<< HEAD
+      };
+        products = this.props.guestCart;
+    };
+=======
+      },
+        (products = this.props.guestCart);
     }
+>>>>>>> d6293ca4609d50e6d80513a8ec423638dc729043
 
     let preTaxTotal = 0;
 
@@ -150,6 +157,7 @@ export class Order extends React.Component {
     );
   }
 }
+
 const mapState = (reduxState) => {
   return {
     order: reduxState.order,

@@ -1,10 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchInfo } from "../store/info";
 import { fetchAllUsers } from "../store/admin";
 import { fetchProducts } from "../store/products";
 import { fetchAllOrders } from "../store/allOrders";
-import { Link } from "react-router-dom";
 
 export class Admin extends React.Component {
   componentDidMount() {
@@ -15,8 +15,6 @@ export class Admin extends React.Component {
   }
 
   render() {
-    //console.log(this.props);
-
     let user = this.props.user.userInfo || {};
     let allUser = this.props.users || [];
     let allProducts = this.props.products || [];
@@ -49,7 +47,7 @@ export class Admin extends React.Component {
         </div>
         <div className="product-list">
           <h2>All Products</h2>
-          <div>
+          <div className="allProds">
             {allProducts.map((product) => (
               <div key={product.id}>
                 <Link to={`/products/${product.id}`}>
@@ -62,14 +60,12 @@ export class Admin extends React.Component {
         </div>
         <div className="order-list">
           <h2> All Orders</h2>
-          <div>
-            <div>
-              {allOrders.map((order) => (
-                <div key={order.Orderid}>
-                  <h2> Order ID: {order.Orderid}</h2>
-                </div>
-              ))}
-            </div>
+          <div className="allOrders">
+            {allOrders.map((order) => (
+              <div key={order.Orderid}>
+                <h2> Order ID: {order.Orderid}</h2>
+              </div>
+            ))}
           </div>
         </div>
       </div>

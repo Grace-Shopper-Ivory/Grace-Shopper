@@ -1,7 +1,7 @@
 const router = require("express").Router();
-// const { useImperativeHandle } = require("react");
+
 const {
-  models: { Order, User, Product },
+  models: { User, Product },
 } = require("../db");
 
 router.get("/:id", async (req, res, next) => {
